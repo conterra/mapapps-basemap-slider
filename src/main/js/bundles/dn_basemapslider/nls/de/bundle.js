@@ -15,7 +15,7 @@
  */
 module.exports = {
     bundleName: "Basemap Slider",
-    bundleDescription: "Der Basemap Slider ist ein neues Widget, welches das überblenden von Grundkarten erm\u00F6glicht.",
+    bundleDescription: "Der Basemap Slider ist ein neues Widget, welches das \u00fcberblenden von Grundkarten erm\u00F6glicht.",
     ui: {
         title: "Basemap Slider"
     },

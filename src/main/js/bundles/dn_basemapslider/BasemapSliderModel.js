@@ -27,7 +27,7 @@ const BasemapSliderModel = declare({
         let basemapModel = this._basemapModel;
         let basemaps = this.basemaps = basemapModel.basemaps;
         basemaps.shift();
-            this.addBasemapAsLayer();
+        this.addBasemapAsLayer();
     },
 
     addBasemapAsLayer() {
@@ -42,7 +42,7 @@ const BasemapSliderModel = declare({
             baselayer2.set("opacity", this.opacity / 100);
             map.add(baselayer2);
             map.reorder(baselayer2, i);
-            this.loadedLayers.push(baselayer2)
+            this.loadedLayers.push(baselayer2);
         }
 
     },
@@ -54,11 +54,11 @@ const BasemapSliderModel = declare({
             if (value > (100 / loadedLayers.length) * i) {
                 if (value < (100 / loadedLayers.length) * (i + 1)) {
                     map.reorder(loadedLayers[i], loadedLayers.length - 1);
-                    loadedLayers[i].opacity = 1-( 1 * (i + 1) - (value / 100) * loadedLayers.length);
+                    loadedLayers[i].opacity = 1 - (1 * (i + 1) - (value / 100) * loadedLayers.length);
                     console.log(loadedLayers[i].opacity);
                     let previousChip = this.chip;
                     this.chip = document.getElementById(loadedLayers[i].id);
-                    if (previousChip != null & previousChip != this.chip) {
+                    if (previousChip !== null && previousChip !== this.chip) {
                         previousChip.style.background = "#7f7f7f";
                     }
                     this.chip.style.background = "#12a5f4";
@@ -66,7 +66,7 @@ const BasemapSliderModel = declare({
             }
         }
 
-    },
+    }
 
 });
 

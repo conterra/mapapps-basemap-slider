@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 module.exports = {
-    apptitle: "Map Movie Sample",
+    apptitle: "Basemap Slider Sample",
     custominfo: {
-        content: "Diese App zeigt das Basemap Slider Bundle, welches es erm\u00F6glicht, Grundkarten ineinander zu schmelzen. Um die Funktinoalität auszuprobieren, benutzen Sie den Slider in der rechtsobenen Ecke"
+        content: "Diese App zeigt das Basemap Slider Bundle, welches es erm\u00F6glicht, Grundkarten ineinander zu \u00fcberblenden. Um die Funktinoalit\u00e4t auszuprobieren, benutzen Sie den Slider in der rechten oberen Ecke"
     },
     tool:{
         title: "Basemap Slider",
