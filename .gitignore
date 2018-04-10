@@ -3,7 +3,6 @@
 **/*.iml
 **/*.lnk
 **/target
-/build.properties
 /node_modules
 /node
 /nb-configuration.xml
