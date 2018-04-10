@@ -1,0 +1,1 @@
+# mapapps-basemap-slider
