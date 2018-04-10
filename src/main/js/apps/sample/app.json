@@ -1,0 +1,190 @@
+{
+  "properties": {
+    "title": "${apptitle}"
+  },
+  "load": {
+    "bundleLocations": [
+      "localbundles",
+      "bundles"
+    ],
+    "allowedBundles": [
+      "system",
+      "banner",
+      "console",
+      "custominfo",
+      "notifier",
+      "splashscreen",
+      "templatelayout",
+      "template-seasons",
+      "theme-everlasting",
+      "theme-winter",
+      "theme-spring",
+      "theme-summer",
+      "theme-autumn",
+      "map-init",
+      "toolset",
+      "dn_basemapslider",
+      "console"
+    ],
+    "require": [
+      "${app}/app"
+    ],
+    "i18n": [
+      "bundle"
+    ]
+  },
+  "bundles": {
+    "banner": {
+      "BannerWidget": {
+        "label": "Developer Network",
+        "image": "https://www.conterra.de/~/media/conterra/images/site_logos/conterra-logo.ashx",
+        "imagePosition": "above",
+        "link": "http://developernetwork.conterra.de"
+      }
+    },
+    "custominfo": {
+      "CustomInfoToggleTool": [
+        {
+          "id": "customInfoTool",
+          "activateOnStartup": true,
+          "title": "Information",
+          "tooltip": "Information",
+          "iconClass": "icon-custom-info-info",
+          "toolClass": "ctInfo",
+          "togglable": true,
+          "widgetSettings": {
+            "content": "${custominfo.content}",
+            "window": {
+              "title": "Information",
+              "marginBox": {
+                "w": 300,
+                "h": 160,
+                "l": 25,
+                "b": 70
+              },
+              "draggable": true,
+              "closable": true,
+              "modal": false,
+              "maximizable": false,
+              "resizable": false
+            }
+          }
+        }
+      ]
+    },
+    "map-init": {
+      "Config": {
+        "basemaps": [
+          {
+            "id": "basis",
+            "title": "Basis",
+            "description": "This basemap ist the standard basemap of Borken County",
+            "basemap" :{
+              "type": "AGS_TILED",
+              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Basiskarte/Basiskarte_Kreis_Borken_graustufen/MapServer"
+            }
+          },
+          {
+            "id": "15",
+            "title": "2015",
+            "description": "This basemap showes the satellite picture of 2015",
+            "basemap" :{
+              "type": "AGS_TILED",
+              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_2015_Kreis_Borken/MapServer"
+            }
+          },
+          {
+            "id": "09",
+            "title": "2009",
+            "description": "This basemap showes the satellite picture of 2009",
+            "basemap" :{
+              "type": "AGS_TILED",
+              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_2009_Kreis_Borken/MapServer"
+            }
+          },
+          {
+            "id": "00",
+            "title": "2000",
+            "description": "This basemap showes the satellite picture of 2000",
+            "basemap" :{
+              "type": "AGS_TILED",
+              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_00_02_Kreis_Borken/MapServer"
+            }
+          },
+          {
+            "id": "95",
+            "title": "1995",
+            "description": "This basemap showes the satellite picture of 1995",
+            "basemap" :{
+              "type": "AGS_TILED",
+              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_95_97_Kreis_Borken/MapServer"
+            }
+          },
+          {
+            "id": "82",
+            "title": "1982",
+            "description": "This basemap showes the satellite picture of 1982",
+            "basemap" :{
+              "type": "AGS_TILED",
+              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_82_87_Kreis_Borken/MapServer"
+            }
+          }
+        ],
+        "map": {
+          "layers": [
+          ],
+          "ground": {
+            "url": "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
+            "type": "ELEVATION"
+          }
+        },
+        "view": {
+          "viewmode": "2D",
+          "extent": {
+            "xmin": 345694.65972400346,
+            "ymin": 6805689.392681013,
+            "xmax": 360183.9164592539,
+            "ymax": 4719932.5999735305,
+            "spatialReference": 25832
+          }
+        }
+      }
+    },
+    "themes": {
+      "ThemeModel": {
+        "_selectedTheme": "everlasting"
+      },
+      "ThemeSelector": {
+        "componentEnabled": true
+      }
+    },
+    "templates": {
+      "TemplateModel": {
+        "_templates": [
+          {
+            "name": "seasons",
+            "widgets": []
+          }
+        ]
+      }
+    },
+    "toolset": {
+      "ToolsetManager": {
+        "toolsets": [
+          {
+            "id": "mapview_tools",
+            "tools": [
+              "*"
+            ],
+            "registerWidget": {
+              "widgetRole": "mapview_tools"
+            },
+            "container": "ignore",
+            "windowType": "container",
+            "cssClass": "muted"
+          }
+        ]
+      }
+    }
+  }
+}

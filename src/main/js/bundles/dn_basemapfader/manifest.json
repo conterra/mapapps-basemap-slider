@@ -1,0 +1,65 @@
+{
+  "name": "dn_basemapslider",
+  "version": "1.0.0-SNAPSHOT",
+  "title": "${bundleName}",
+  "description": "${bundleDescription}",
+  "vendor": "con terra GmbH",
+  "productName": "devnet-mapapps-basemapslider",
+  "dependencies": {
+    "apprt-vue": "^4.x",
+    "apprt-binding": "^4.x",
+    "apprt-vuetify": "^4.x"
+  },
+  "CSS-Themes-Extension": [
+    {
+      "name": "*",
+      "files": [
+        "./css/styles.css"
+      ]
+    }
+  ],
+  "layout-widgets": [
+    {
+      "widgetRole": "basemapslider",
+      "attachTo": "map_topright"
+    }
+  ],
+  "components": [
+    {
+      "name": "BasemapSliderWidgetFactory",
+      "provides": [
+        "dijit.Widget"
+      ],
+      "instanceFactory": true,
+      "properties": {
+        "widgetRole": "basemapslider"
+      },
+      "references": [
+        {
+          "name": "_basemapSliderModel",
+          "providing": "dn_basemapslider.BasemapSliderModel"
+        },
+        {
+          "name": "_basemapModel",
+          "providing": "map-basemaps-api.BasemapsModel"
+        }
+      ]
+    },
+    {
+      "name": "BasemapSliderModel",
+      "provides": "dn_basemapslider.BasemapSliderModel",
+      "propertiesConstructor": true,
+      "properties": {},
+      "references": [
+        {
+          "name": "_mapWidgetModel",
+          "providing": "map-widget.MapWidgetModel"
+        },
+        {
+          "name": "_basemapModel",
+          "providing": "map-basemaps-api.BasemapsModel"
+        }
+      ]
+    }
+  ]
+}
