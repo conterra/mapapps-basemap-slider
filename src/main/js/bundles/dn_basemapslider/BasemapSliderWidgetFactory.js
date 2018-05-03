@@ -31,12 +31,9 @@ class BasemapSliderWidgetFactory {
         vm.basemaps = model.basemaps;
         vm.opacity = model.opacity;
         vm.baselayer = model.baselayer;
-        vm.iconplay = model.iconplay;
-        model.reverse = vm.reverse;
-        model.forward = vm.forward;
 
-        vm.$on('addBasemapAsLayer', (layerId, index) => {
-            model.addBasemapAsLayer(layerId, index);
+        vm.$on('goToLayer', (layerId) => {
+            model.goToLayer(layerId);
         });
         vm.$on('adjustOpacity', (value) => {
             model.adjustOpacity(value);

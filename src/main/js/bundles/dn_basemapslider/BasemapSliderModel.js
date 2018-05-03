@@ -26,7 +26,6 @@ const BasemapSliderModel = declare({
     activate() {
         let basemapModel = this._basemapModel;
         let basemaps = this.basemaps = basemapModel.basemaps;
-        basemaps.shift();
         this.addBasemapAsLayer();
     },
 
@@ -36,14 +35,14 @@ const BasemapSliderModel = declare({
             let basemap = this.basemaps[i].basemap;
             let clone = basemap.clone();
             clone.load();
-
             let baselayer2 = this.baselayer = clone.baseLayers.items[0];
             baselayer2.id = this.basemaps[i].id;
-            baselayer2.set("opacity", this.opacity / 100);
             map.add(baselayer2);
-            map.reorder(baselayer2, i);
             this.loadedLayers.push(baselayer2);
         }
+        for(let i = 0; i < this.loadedLayers.length; i++){
+            map.reorder(this.loadedLayers[i], this.loadedLayers.length-i-1);
+         }
 
     },
 
@@ -51,21 +50,38 @@ const BasemapSliderModel = declare({
         let map = this._mapWidgetModel.get("map");
         let loadedLayers = this.loadedLayers;
         for (let i = 0; i < loadedLayers.length; i++) {  //variable gestalten!!
-            if (value > (100 / loadedLayers.length) * i) {
-                if (value < (100 / loadedLayers.length) * (i + 1)) {
+            if (value >= (100 / loadedLayers.length) * i) {
+                if (value <= (100 / loadedLayers.length) * (i + 1)) {
                     map.reorder(loadedLayers[i], loadedLayers.length - 1);
-                    loadedLayers[i].opacity = 1 - (1 * (i + 1) - (value / 100) * loadedLayers.length);
-                    console.log(loadedLayers[i].opacity);
+                    var opacityBeginning = (i + 1) - (value / 100) * loadedLayers.length;
+                    var opacityMiddle = -4*(Math.pow((opacityBeginning-0.5), 2)) + 1.15; // Mitte des Intervals ist Höhepunkt
+                    loadedLayers[i].opacity = opacityMiddle;
                     let previousChip = this.chip;
                     this.chip = document.getElementById(loadedLayers[i].id);
                     if (previousChip !== null && previousChip !== this.chip) {
                         previousChip.style.background = "#7f7f7f";
+                        for(let n = 0; n < loadedLayers.length; n++){
+                            if (loadedLayers[n].id === previousChip.id){
+                                loadedLayers[n].opacity = 0.5;
+                                console.log(previousChip.id);
+                            }
+                        }
                     }
                     this.chip.style.background = "#12a5f4";
                 }
             }
+
         }
 
+    },
+
+    goToLayer(layerId){
+        let loadedLayers = this.loadedLayers;
+        for(let i = 0; i < loadedLayers.length; i++){
+            if(loadedLayers[i].id === layerId){
+                this.opacity = i * 100 / loadedLayers.length+10;
+            }
+        }
     }
 
 });
