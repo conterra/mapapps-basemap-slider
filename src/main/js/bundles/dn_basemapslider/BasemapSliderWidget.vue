@@ -4,7 +4,7 @@
             <v-chip class="text-xs-center" v-for="basemap in basemaps" disabled :key="basemap.id" :id="basemap.id" v-on:click="goToLayer(basemap.id)">
                 {{basemap.title}}
             </v-chip>
-            <v-flex xs12 pl-3 pr-2>
+            <v-flex xs12 pl-1 pr-1>
             <v-slider id="slider" class="pt-10" hide-details v-model="opacity"></v-slider>
             </v-flex>
         </v-flex>

@@ -23,7 +23,7 @@
       "theme-autumn",
       "map-init",
       "toolset",
-      "dn_basemapslider",
+      "dn_basemapslider2",
       "console"
     ],
     "require": [
@@ -76,15 +76,6 @@
       "Config": {
         "basemaps": [
           {
-            "id": "basis",
-            "title": "Basis",
-            "description": "This basemap ist the standard basemap of Borken County",
-            "basemap" :{
-              "type": "AGS_TILED",
-              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Basiskarte/Basiskarte_Kreis_Borken_graustufen/MapServer"
-            }
-          },
-          {
             "id": "15",
             "title": "2015",
             "description": "This basemap showes the satellite picture of 2015",
@@ -94,12 +85,30 @@
             }
           },
           {
+            "id": "12",
+            "title": "2012",
+            "description": "This basemap showes the satellite picture of 2012",
+            "basemap" :{
+              "type": "AGS_TILED",
+              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_2012_Kreis_Borken/MapServer"
+            }
+          },
+          {
             "id": "09",
             "title": "2009",
             "description": "This basemap showes the satellite picture of 2009",
             "basemap" :{
               "type": "AGS_TILED",
               "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_2009_Kreis_Borken/MapServer"
+            }
+          },
+          {
+            "id": "06",
+            "title": "2006",
+            "description": "This basemap showes the satellite picture of 2006",
+            "basemap" :{
+              "type": "AGS_TILED",
+              "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_05_06_Kreis_Borken/MapServer"
             }
           },
           {
@@ -140,12 +149,12 @@
         },
         "view": {
           "viewmode": "2D",
-          "xmin": 299063.097662457,
-          "xmax": 426063.35166296497,
-          "ymin": 5732790.313452567,
-          "ymax": 5790337.303546547,
-          "spatialReference": {
-            "wkid": 25832
+          "extent": {
+            "xmin": 360200,
+            "xmax": 362000,
+            "ymin": 5769700,
+            "ymax": 5770700,
+            "spatialReference": 25832
           }
         }
       }

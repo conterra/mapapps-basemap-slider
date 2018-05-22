@@ -11,7 +11,7 @@ Installation Guide
 ------------------
 **Requirement: map.apps 4.3.0**
 
-Simply add the bundle "dn_basemapslider" to your map.apps 4 app.
+Simply add the bundle "dn_basemapslider" to your map.apps 4 app and load the baselayer in the order you want them to be displayed
 
 Development Guide
 ------------------
