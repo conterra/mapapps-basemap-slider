@@ -41,7 +41,7 @@ const BasemapSliderModel = declare({
             clone.load();
             let baselayer2 = this.baselayer = clone.baseLayers.items[0];
             baselayer2.id = this.basemaps[i].id;
-            if( i === 0){
+            if (i === 0) {
                 map.set('basemap', baselayer2);
             }
 
@@ -60,8 +60,9 @@ const BasemapSliderModel = declare({
         let loadedLayers = this.loadedLayers;
 
         for (let i = 0; i < loadedLayers.length; i++) {  //variable gestalten!!
-            if(i === 0 && value <= (100 / loadedLayers.length) /1.5){
-                var opacity = 1- ((value / 100) * loadedLayers.length);
+            let opacity;
+            if (i === 0 && value <= (100 / loadedLayers.length) / 1.5) {
+                opacity = 1 - ((value / 100) * loadedLayers.length);
                 loadedLayers[0].opacity = opacity;
                 return;
             }
@@ -74,7 +75,7 @@ const BasemapSliderModel = declare({
                 this.chip.style.background = "#12a5f4";
 
                 map.reorder(loadedLayers[i], loadedLayers.length - 1);
-                var opacity = Math.abs(i - (value / 100) * loadedLayers.length);
+                opacity = Math.abs(i - (value / 100) * loadedLayers.length);
                 loadedLayers[i].opacity = opacity;
 
 
