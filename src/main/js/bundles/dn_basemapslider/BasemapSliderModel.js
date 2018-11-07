@@ -15,6 +15,7 @@
  */
 import {declare} from "apprt-core/Mutable";
 import Basemap from "esri/Basemap";
+import TileLayer from "esri/layers/TileLayer";
 
 const BasemapSliderModel = declare({
 
@@ -42,7 +43,23 @@ const BasemapSliderModel = declare({
             let baselayer2 = this.baselayer = clone.baseLayers.items[0];
             baselayer2.id = this.basemaps[i].id;
             if (i === 0) {
-                map.set('basemap', baselayer2);
+                let firstBasemap = new Basemap({
+                    baseLayers: [
+                        new TileLayer({
+                            id: 'baselayer',
+                            url: baselayer2.url,
+                            opacity: 0
+                        })
+                    ],
+                    referenceLayers: [
+                        new TileLayer({
+                            id: 'baselayer',
+                            url: baselayer2.url,
+                            opacity: 0
+                        })
+                    ],
+                });
+                map.set('basemap', firstBasemap);
             }
 
             map.add(baselayer2);
