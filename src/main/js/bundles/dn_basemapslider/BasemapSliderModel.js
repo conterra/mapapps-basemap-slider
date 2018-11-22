@@ -22,19 +22,25 @@ const BasemapSliderModel = declare({
     opacity: 0,
     basemaps: [],
     baselayer: null,
-    loadedLayers: [],
+    loadedBaselayers: [],
     chip: null,
     previousLayer: null,
 
     activate() {
         let basemapModel = this._basemapModel;
         let basemaps = this.basemaps = basemapModel.basemaps;
+        let properties = this.properties = this._properties;
         //basemaps.shift(); //The first layer added is always the base layer, even if its order is changed. (ESRI API 4.7)
         this.addBasemapAsLayer();
     },
 
-    addBasemapAsLayer() {
+    addBasemapAsLayer: function () {
+
         let map = this._mapWidgetModel.get("map");
+        let initialLayers;
+        if (map.layers.items.length !== 0) {
+            initialLayers = Array.from(map.layers.items);
+        }
         for (let i = 0; i < this.basemaps.length; i++) {
 
             let basemap = this.basemaps[i].basemap;
@@ -59,41 +65,57 @@ const BasemapSliderModel = declare({
                         })
                     ],
                 });
+                if(!this.properties.showInMapflow){
+                    baselayer2.listMode="hide";
+                }
                 map.set('basemap', firstBasemap);
             }
-
+            if(!this.properties.showInMapflow){
+                baselayer2.listMode="hide";
+            }
             map.add(baselayer2);
 
-            this.loadedLayers.push(baselayer2);
+            this.loadedBaselayers.push(baselayer2);
         }
-        for (let i = 0; i < this.loadedLayers.length; i++) {
-            map.reorder(this.loadedLayers[i], this.loadedLayers.length - i - 1);
+
+        if (initialLayers) {
+            for (let n = 0; n < initialLayers.length; n++) {
+                map.reorder(initialLayers[n], initialLayers.length + this.loadedBaselayers.length - 1);
+            }
+        }
+
+        for (let m = 0; m < this.loadedBaselayers.length; m++) {
+            map.reorder(this.loadedBaselayers[m], this.loadedBaselayers.length - m - 1);
         }
 
     },
 
     adjustOpacity(value) {
         let map = this._mapWidgetModel.get("map");
-        let loadedLayers = this.loadedLayers;
+        let loadedBaselayers = this.loadedBaselayers;
 
-        for (let i = 0; i < loadedLayers.length; i++) {  //variable gestalten!!
+        for (let i = 0; i < loadedBaselayers.length; i++) {  //variable gestalten!!
             let opacity;
-            if (i === 0 && value <= (100 / loadedLayers.length) / 1.5) {
-                opacity = 1 - ((value / 100) * loadedLayers.length);
-                loadedLayers[0].opacity = opacity;
+            if (i === 0 && value <= (100 / loadedBaselayers.length) / 1.5) {
+                opacity = 1 - ((value / 100) * loadedBaselayers.length);
+                loadedBaselayers[0].opacity = opacity;
                 return;
             }
-            if (value >= (100 / loadedLayers.length) * i && value <= (100 / loadedLayers.length) * (i + 1)) {
+            if (value >= (100 / loadedBaselayers.length) * i && value <= (100 / loadedBaselayers.length) * (i + 1)) {
+                if (loadedBaselayers[i] === map.layers[7]) {
+                    opacity = Math.abs(i - (value / 100) * loadedBaselayers.length);
+                    return;
+                }
                 let previousChip = this.chip;
-                this.chip = document.getElementById(loadedLayers[i].id);
+                this.chip = document.getElementById(loadedBaselayers[i].id);
                 if (previousChip !== null && previousChip !== this.chip) {
                     previousChip.style.background = "#7f7f7f";
                 }
                 this.chip.style.background = "#12a5f4";
 
-                map.reorder(loadedLayers[i], loadedLayers.length - 1);
-                opacity = Math.abs(i - (value / 100) * loadedLayers.length);
-                loadedLayers[i].opacity = opacity;
+                map.reorder(loadedBaselayers[i], loadedBaselayers.length - 1);
+                opacity = Math.abs(i - (value / 100) * loadedBaselayers.length);
+                loadedBaselayers[i].opacity = opacity;
 
 
             }
@@ -104,11 +126,11 @@ const BasemapSliderModel = declare({
     },
 
     goToLayer(layerId) {
-        let loadedLayers = this.loadedLayers;
-        for (let i = 0; i < loadedLayers.length; i++) {
+        let loadedBaselayers = this.loadedBaselayers;
+        for (let i = 0; i < loadedBaselayers.length; i++) {
 
-            if (loadedLayers[i].id === layerId) {
-                this.opacity = Math.abs(((i + 0.9) * 100 / loadedLayers.length));
+            if (loadedBaselayers[i].id === layerId) {
+                this.opacity = Math.abs(((i + 0.9) * 100 / loadedBaselayers.length));
             }
         }
     }

@@ -23,6 +23,7 @@
       "theme-autumn",
       "map-init",
       "toolset",
+      "mapflow",
       "dn_basemapslider",
       "console"
     ],
@@ -72,6 +73,11 @@
         }
       ]
     },
+    "dn_basemapslider":{
+      "BasemapSliderModel":{
+        "showInMapflow": false
+      }
+    },
     "map-init": {
       "Config": {
         "basemaps": [
@@ -79,7 +85,7 @@
             "id": "15",
             "title": "2015",
             "description": "This basemap showes the satellite picture of 2015",
-            "basemap" :{
+            "basemap": {
               "type": "AGS_TILED",
               "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_2015_Kreis_Borken/MapServer"
             }
@@ -88,7 +94,7 @@
             "id": "12",
             "title": "2012",
             "description": "This basemap showes the satellite picture of 2012",
-            "basemap" :{
+            "basemap": {
               "type": "AGS_TILED",
               "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_2012_Kreis_Borken/MapServer"
             }
@@ -97,7 +103,7 @@
             "id": "09",
             "title": "2009",
             "description": "This basemap showes the satellite picture of 2009",
-            "basemap" :{
+            "basemap": {
               "type": "AGS_TILED",
               "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_2009_Kreis_Borken/MapServer"
             }
@@ -106,7 +112,7 @@
             "id": "06",
             "title": "2006",
             "description": "This basemap showes the satellite picture of 2006",
-            "basemap" :{
+            "basemap": {
               "type": "AGS_TILED",
               "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_05_06_Kreis_Borken/MapServer"
             }
@@ -115,7 +121,7 @@
             "id": "00",
             "title": "2000",
             "description": "This basemap showes the satellite picture of 2000",
-            "basemap" :{
+            "basemap": {
               "type": "AGS_TILED",
               "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_00_02_Kreis_Borken/MapServer"
             }
@@ -124,7 +130,7 @@
             "id": "95",
             "title": "1995",
             "description": "This basemap showes the satellite picture of 1995",
-            "basemap" :{
+            "basemap": {
               "type": "AGS_TILED",
               "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_95_97_Kreis_Borken/MapServer"
             }
@@ -133,7 +139,7 @@
             "id": "82",
             "title": "1982",
             "description": "This basemap showes the satellite picture of 1982",
-            "basemap" :{
+            "basemap": {
               "type": "AGS_TILED",
               "url": "https://kartendienste.kreis-borken.de/arcgis/rest/services/Geobasisdaten/Geobasisdaten_Luftbilder_Sommer_82_87_Kreis_Borken/MapServer"
             }
@@ -141,6 +147,13 @@
         ],
         "map": {
           "layers": [
+            {
+              "id": "wahlen",
+              "title": "Wahllokale",
+              "type": "AGS_FEATURE",
+              "url": "https://services.arcgis.com/OLiydejKCZTGhvWg/ArcGIS/rest/services/Wahllokale/FeatureServer/0",
+              "active": true
+            }
           ],
           "ground": {
             "url": "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",

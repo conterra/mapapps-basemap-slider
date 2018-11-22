@@ -49,7 +49,9 @@
       "name": "BasemapSliderModel",
       "provides": "dn_basemapslider.BasemapSliderModel",
       "propertiesConstructor": true,
-      "properties": {},
+      "properties": {
+        "showInMapflow": false
+      },
       "references": [
         {
           "name": "_mapWidgetModel",
