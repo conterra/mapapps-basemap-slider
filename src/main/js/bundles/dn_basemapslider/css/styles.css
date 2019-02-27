@@ -1,8 +1,11 @@
-#dijit__WidgetBase_3{
+.basemapslider {
     background-color:#48484b00;
 }
 
-.everlasting .vue-base .input-group {
+.vue-base .basemapslider .input-group {
     padding:0 0 0;
 }
 
+.vue-base .basemapslider .v-chip {
+    color: white;
+}

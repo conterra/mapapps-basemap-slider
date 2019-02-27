@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="basemapslider">
         <v-flex>
             <v-chip class="text-xs-center" v-for="basemap in basemaps" disabled :key="basemap.id" :id="basemap.id"
                     v-on:click="goToLayer(basemap.id)">

@@ -147,13 +147,6 @@
         ],
         "map": {
           "layers": [
-            {
-              "id": "wahlen",
-              "title": "Wahllokale",
-              "type": "AGS_FEATURE",
-              "url": "https://services.arcgis.com/OLiydejKCZTGhvWg/ArcGIS/rest/services/Wahllokale/FeatureServer/0",
-              "active": true
-            }
           ],
           "ground": {
             "url": "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
