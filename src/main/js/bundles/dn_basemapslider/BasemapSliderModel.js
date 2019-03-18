@@ -63,15 +63,15 @@ const BasemapSliderModel = declare({
                             url: baselayer2.url,
                             opacity: 0
                         })
-                    ],
+                    ]
                 });
-                if(!this.properties.showInMapflow){
-                    baselayer2.listMode="hide";
+                if (!this.properties.showInMapflow) {
+                    baselayer2.listMode = "hide";
                 }
                 map.set('basemap', firstBasemap);
             }
-            if(!this.properties.showInMapflow){
-                baselayer2.listMode="hide";
+            if (!this.properties.showInMapflow) {
+                baselayer2.listMode = "hide";
             }
             map.add(baselayer2);
 
