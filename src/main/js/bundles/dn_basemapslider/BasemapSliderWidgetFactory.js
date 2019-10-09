@@ -18,23 +18,20 @@ import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import Binding from "apprt-binding/Binding";
 
-class BasemapSliderWidgetFactory {
+export default class BasemapSliderWidgetFactory {
 
     activate() {
         this._initComponent();
     }
 
     _initComponent() {
-        let basemapModel = this._basemapModel;
-        let model = this._basemapSliderModel;
+        const basemapModel = this._basemapModel;
+        const model = this._basemapSliderModel;
         const vm = this.basemapslider = new Vue(BasemapSliderWidget);
         vm.basemaps = model.basemaps;
         vm.opacity = model.opacity;
         vm.baselayer = model.baselayer;
 
-        vm.$on('goToLayer', (layerId) => {
-            model.goToLayer(layerId);
-        });
         vm.$on('adjustOpacity', (value) => {
             model.adjustOpacity(value);
         });
@@ -49,7 +46,6 @@ class BasemapSliderWidgetFactory {
             .create()
             .bindTo(vm, basemapModel)
             .enable();
-
     }
 
     createInstance() {
@@ -57,6 +53,3 @@ class BasemapSliderWidgetFactory {
     }
 
 }
-
-
-module.exports = BasemapSliderWidgetFactory;

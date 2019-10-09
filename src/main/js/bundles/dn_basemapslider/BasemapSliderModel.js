@@ -14,127 +14,78 @@
  * limitations under the License.
  */
 import {declare} from "apprt-core/Mutable";
-import Basemap from "esri/Basemap";
-import TileLayer from "esri/layers/TileLayer";
 
-const BasemapSliderModel = declare({
+export default declare({
 
     opacity: 0,
     basemaps: [],
-    baselayer: null,
-    loadedBaselayers: [],
-    chip: null,
-    previousLayer: null,
+    baselayers: [],
 
     activate() {
-        let basemapModel = this._basemapModel;
-        let basemaps = this.basemaps = basemapModel.basemaps;
-        let properties = this.properties = this._properties;
-        //basemaps.shift(); //The first layer added is always the base layer, even if its order is changed. (ESRI API 4.7)
-        this.addBasemapAsLayer();
-    },
-
-    addBasemapAsLayer: function () {
-
-        let map = this._mapWidgetModel.get("map");
-        let initialLayers;
-        if (map.layers.items.length !== 0) {
-            initialLayers = Array.from(map.layers.items);
-        }
-        for (let i = 0; i < this.basemaps.length; i++) {
-
-            let basemap = this.basemaps[i].basemap;
-            let clone = basemap.clone();
-            clone.load();
-            let baselayer2 = this.baselayer = clone.baseLayers.items[0];
-            baselayer2.id = this.basemaps[i].id;
-            if (i === 0) {
-                let firstBasemap = new Basemap({
-                    baseLayers: [
-                        new TileLayer({
-                            id: 'baselayer',
-                            url: baselayer2.url,
-                            opacity: 0
-                        })
-                    ],
-                    referenceLayers: [
-                        new TileLayer({
-                            id: 'baselayer',
-                            url: baselayer2.url,
-                            opacity: 0
-                        })
-                    ]
-                });
-                if (!this.properties.showInMapflow) {
-                    baselayer2.listMode = "hide";
+        const basemapModel = this._basemapModel;
+        if (basemapModel.basemaps.length === 1) {
+            const basemap = basemapModel.basemaps[0].basemap;
+            const baseLayers = basemap.baseLayers.getItemAt(0).layers;
+            this.basemaps = baseLayers.map((basemap, i) => {
+                this.baselayers.push(basemap);
+                return {
+                    id: basemap.id,
+                    title: basemap.title,
+                    value: i,
+                    active: false
                 }
-                map.set('basemap', firstBasemap);
-            }
-            if (!this.properties.showInMapflow) {
-                baselayer2.listMode = "hide";
-            }
-            map.add(baselayer2);
+            }).toArray();
 
-            this.loadedBaselayers.push(baselayer2);
+            this.adjustOpacity(0);
         }
-
-        if (initialLayers) {
-            for (let n = 0; n < initialLayers.length; n++) {
-                map.reorder(initialLayers[n], initialLayers.length + this.loadedBaselayers.length - 1);
-            }
-        }
-
-        for (let m = 0; m < this.loadedBaselayers.length; m++) {
-            map.reorder(this.loadedBaselayers[m], this.loadedBaselayers.length - m - 1);
-        }
-
     },
 
     adjustOpacity(value) {
-        let map = this._mapWidgetModel.get("map");
-        let loadedBaselayers = this.loadedBaselayers;
-
-        for (let i = 0; i < loadedBaselayers.length; i++) {  //variable gestalten!!
-            let opacity;
-            if (i === 0 && value <= (100 / loadedBaselayers.length) / 1.5) {
-                opacity = 1 - ((value / 100) * loadedBaselayers.length);
-                loadedBaselayers[0].opacity = opacity;
-                return;
+        this.hideAllBasemaps();
+        const count = this.basemaps.length;
+        const v = value / 100 * (count - 1);
+        const basemapValue1 = Math.floor(v);
+        const basemap1 = this.getBaseLayerForValue(basemapValue1);
+        const baseLayerId1 = basemap1.id;
+        const baseLayer1 = this.getBaseLayer(baseLayerId1);
+        const basemapValue2 = Math.ceil(v);
+        const basemap2 = this.getBaseLayerForValue(basemapValue2);
+        const baseLayerId2 = basemap2.id;
+        const baseLayer2 = this.getBaseLayer(baseLayerId2);
+        const opacity = v - basemapValue1;
+        if (baseLayerId1 === baseLayerId2) {
+            baseLayer1.opacity = 1;
+            basemap1.active = true;
+        } else {
+            baseLayer1.opacity = 1 - opacity;
+            baseLayer2.opacity = opacity;
+            if (opacity <= 0.5) {
+                basemap1.active = true;
+            } else {
+                basemap2.active = true;
             }
-            if (value >= (100 / loadedBaselayers.length) * i && value <= (100 / loadedBaselayers.length) * (i + 1)) {
-                if (loadedBaselayers[i] === map.layers[7]) {
-                    opacity = Math.abs(i - (value / 100) * loadedBaselayers.length);
-                    return;
-                }
-                let previousChip = this.chip;
-                this.chip = document.getElementById(loadedBaselayers[i].id);
-                if (previousChip !== null && previousChip !== this.chip) {
-                    previousChip.style.background = "#7f7f7f";
-                }
-                this.chip.style.background = "#12a5f4";
-
-                map.reorder(loadedBaselayers[i], loadedBaselayers.length - 1);
-                opacity = Math.abs(i - (value / 100) * loadedBaselayers.length);
-                loadedBaselayers[i].opacity = opacity;
-
-
-            }
-
-
         }
-
     },
 
-    goToLayer(layerId) {
-        let loadedBaselayers = this.loadedBaselayers;
-        for (let i = 0; i < loadedBaselayers.length; i++) {
+    hideAllBasemaps() {
+        this.baselayers.forEach((baselayer) => {
+            baselayer.opacity = 0;
+        });
+        this.basemaps.forEach((basemap) => {
+            basemap.active = false;
+        });
+    },
 
-            if (loadedBaselayers[i].id === layerId) {
-                this.opacity = Math.abs(((i + 0.9) * 100 / loadedBaselayers.length));
-            }
-        }
+    getBaseLayer(id) {
+        return this.baselayers.find((baselayer) => {
+            return baselayer.id === id;
+        })
+    },
+
+    getBaseLayerForValue(value) {
+        return this.basemaps.find((basemap) => {
+            return basemap.value === value;
+        });
     }
 
 });
-
-module.exports = BasemapSliderModel;

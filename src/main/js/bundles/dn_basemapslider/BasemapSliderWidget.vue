@@ -20,11 +20,11 @@
         <v-flex>
             <v-chip
                 v-for="basemap in basemaps"
-                :key="basemap.id"
                 :id="basemap.id"
-                class="text-xs-center"
-                disabled
-                @click="goToLayer(basemap.id)">
+                :key="basemap.id"
+                :class="{ primary: basemap.active }"
+                label
+                @click="goToLayer(basemap.value)">
                 {{ basemap.title }}
             </v-chip>
             <v-flex
@@ -32,7 +32,6 @@
                 pl-1
                 pr-1>
                 <v-slider
-                    id="slider"
                     v-model="opacity"
                     class="pt-10"
                     hide-details/>
@@ -52,15 +51,14 @@
             };
         },
         watch: {
-            opacity: {
-                handler(val, oldVal) {
-                    this.$emit('adjustOpacity', val);
-                }
+            opacity(val) {
+                this.$emit('adjustOpacity', val);
             }
         },
         methods: {
-            goToLayer: function (layerId) {
-                this.$emit('goToLayer', layerId);
+            goToLayer: function (value) {
+                const count = this.basemaps.length;
+                this.opacity = value * 100 / (count - 1);
             }
         }
     }
