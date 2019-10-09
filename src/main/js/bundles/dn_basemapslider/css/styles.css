@@ -1,11 +1,11 @@
-.basemapslider {
-    background-color: #48484b00;
+.ctAppRoot .basemapslider {
+    background-color: transparent;
 }
 
-.vue-base .basemapslider .input-group {
+.ctAppRoot .vue-base .basemapslider .input-group {
     padding: 0 0 0;
 }
 
-.vue-base .basemapslider .v-chip {
+.ctAppRoot .vue-base .basemapslider .v-chip {
     color: white;
 }
