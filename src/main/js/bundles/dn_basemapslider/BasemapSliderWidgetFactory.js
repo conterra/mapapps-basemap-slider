@@ -24,6 +24,11 @@ export default class BasemapSliderWidgetFactory {
         this._initComponent();
     }
 
+    /**
+     * Method to initial the component.
+     *
+     * @private
+     */
     _initComponent() {
         const basemapsModel = this._basemapsModel;
         const model = this._basemapSliderModel;
@@ -47,6 +52,11 @@ export default class BasemapSliderWidgetFactory {
             .enable();
     }
 
+    /**
+     * Method that returns the Widget.
+     *
+     * @returns VueDijit
+     */
     createInstance() {
         return VueDijit(this.basemapslider, {class: "basemap-slider"});
     }

@@ -15,6 +15,9 @@
  */
 import {declare} from "apprt-core/Mutable";
 
+/**
+ * BasemapSliderModel class
+ */
 export default declare({
 
     opacity: 0,

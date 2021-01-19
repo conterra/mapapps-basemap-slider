@@ -35,6 +35,11 @@ export default class {
         }
     }
 
+    /**
+     * Method that adjusts the opacity properties of the basemaps
+     *
+     * @param value opacity value
+     */
     adjustOpacity(value) {
         const basemapSliderModel = this._basemapSliderModel;
         this._hideAllBasemaps();
@@ -63,6 +68,11 @@ export default class {
         }
     }
 
+    /**
+     * Method that hides all basemaps.
+     *
+     * @private
+     */
     _hideAllBasemaps() {
         const basemapSliderModel = this._basemapSliderModel;
         basemapSliderModel.baselayers.forEach((baselayer) => {
@@ -73,6 +83,13 @@ export default class {
         });
     }
 
+    /**
+     * Method that returns one baselayer.
+     *
+     * @param id baselayer id
+     * @returns {*} baselayer
+     * @private
+     */
     _getBaseLayer(id) {
         const basemapSliderModel = this._basemapSliderModel;
         return basemapSliderModel.baselayers.find((baselayer) => {
@@ -80,6 +97,13 @@ export default class {
         })
     }
 
+    /**
+     * Method that returns one basemap.
+     *
+     * @param value basemap slider value
+     * @returns basemap
+     * @private
+     */
     _getBaseLayerForValue(value) {
         const basemapSliderModel = this._basemapSliderModel;
         return basemapSliderModel.basemaps.find((basemap) => {
