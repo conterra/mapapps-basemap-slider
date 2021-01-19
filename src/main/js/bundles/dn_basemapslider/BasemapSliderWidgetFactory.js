@@ -48,7 +48,7 @@ export default class BasemapSliderWidgetFactory {
     }
 
     createInstance() {
-        return VueDijit(this.basemapslider);
+        return VueDijit(this.basemapslider, {class: "basemap-slider"});
     }
 
 }

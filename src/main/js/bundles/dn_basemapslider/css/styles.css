@@ -17,10 +17,18 @@
     background-color: transparent;
 }
 
-.ctAppRoot .vue-base .basemapslider .input-group {
+.ctAppRoot .basemap-slider .input-group {
     padding: 0 0 0;
 }
 
-.ctAppRoot .vue-base .basemapslider .v-chip {
+.ctAppRoot .basemap-slider .v-chip {
     color: white;
+}
+
+.ctAppRoot .basemap-slider .v-chip .v-chip__content {
+    cursor: pointer;
+}
+
+.ctAppRoot .basemap-slider .v-slider .v-slider__thumb {
+    cursor: pointer;
 }

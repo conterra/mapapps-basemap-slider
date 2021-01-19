@@ -16,28 +16,25 @@
 
 -->
 <template>
-    <div class="basemapslider">
-        <v-flex>
-            <v-chip
-                v-for="basemap in basemaps"
-                :id="basemap.id"
-                :key="basemap.id"
-                :class="{ primary: basemap.active }"
-                label
-                @click="goToLayer(basemap.value)">
-                {{ basemap.title }}
-            </v-chip>
-            <v-flex
-                xs12
-                pl-1
-                pr-1>
-                <v-slider
-                    v-model="opacity"
-                    class="pt-10"
-                    hide-details/>
-            </v-flex>
+    <v-flex>
+        <v-chip
+            v-for="basemap in basemaps"
+            :id="basemap.id"
+            :key="basemap.id"
+            :class="{ primary: basemap.active }"
+            label
+            @click="goToLayer(basemap.value)">
+            {{ basemap.title }}
+        </v-chip>
+        <v-flex
+            xs12
+            px-4>
+            <v-slider
+                v-model="opacity"
+                class="pt-10"
+                hide-details/>
         </v-flex>
-    </div>
+    </v-flex>
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
