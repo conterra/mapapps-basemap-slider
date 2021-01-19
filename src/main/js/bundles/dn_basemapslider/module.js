@@ -16,3 +16,4 @@
 import ".";
 import "./BasemapSliderWidgetFactory";
 import "./BasemapSliderModel";
+import "./BasemapSliderController";

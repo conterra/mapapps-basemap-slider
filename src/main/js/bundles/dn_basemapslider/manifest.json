@@ -40,7 +40,12 @@
                     "providing": "dn_basemapslider.BasemapSliderModel"
                 },
                 {
-                    "name": "_basemapModel",
+                    "name": "_basemapSliderController",
+                    "providing": "dn_basemapslider.BasemapSliderController",
+                    "cardinality": "0..1"
+                },
+                {
+                    "name": "_basemapsModel",
                     "providing": "map-basemaps-api.BasemapsModel"
                 }
             ]
@@ -49,14 +54,22 @@
             "name": "BasemapSliderModel",
             "provides": "dn_basemapslider.BasemapSliderModel",
             "propertiesConstructor": true,
-            "properties": {},
+            "properties": {}
+        },
+        {
+            "name": "BasemapSliderController",
+            "provides": "dn_basemapslider.BasemapSliderController",
             "references": [
+                {
+                    "name": "_basemapSliderModel",
+                    "providing": "dn_basemapslider.BasemapSliderModel"
+                },
                 {
                     "name": "_mapWidgetModel",
                     "providing": "map-widget.MapWidgetModel"
                 },
                 {
-                    "name": "_basemapModel",
+                    "name": "_basemapsModel",
                     "providing": "map-basemaps-api.BasemapsModel"
                 }
             ]

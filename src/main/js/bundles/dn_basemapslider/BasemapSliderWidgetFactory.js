@@ -25,26 +25,25 @@ export default class BasemapSliderWidgetFactory {
     }
 
     _initComponent() {
-        const basemapModel = this._basemapModel;
+        const basemapsModel = this._basemapsModel;
         const model = this._basemapSliderModel;
+        const controller = this._basemapSliderController;
         const vm = this.basemapslider = new Vue(BasemapSliderWidget);
-        vm.basemaps = model.basemaps;
-        vm.opacity = model.opacity;
-        vm.baselayer = model.baselayer;
 
         vm.$on('adjustOpacity', (value) => {
-            model.adjustOpacity(value);
+            controller.adjustOpacity(value);
         });
 
         Binding
             .create()
             .bindTo(vm, model)
             .syncAll("basemaps", "opacity", "baselayer")
+            .syncToLeftNow()
             .enable();
 
         Binding
             .create()
-            .bindTo(vm, basemapModel)
+            .bindTo(vm, basemapsModel)
             .enable();
     }
 
