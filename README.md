@@ -12,7 +12,7 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_basemapslider/index.h
 
 **Requirement: map.apps 4.3.0**
 
-[dn_basemapslider Documentation](https://github.com/conterra/mapapps-selection-actions/tree/master/src/main/js/bundles/dn_basemapslider)
+[dn_basemapslider Documentation](https://github.com/conterra/mapapps-basemap-slider/tree/master/src/main/js/bundles/dn_basemapslider)
 
 ## Development Guide
 ### Define the mapapps remote base
