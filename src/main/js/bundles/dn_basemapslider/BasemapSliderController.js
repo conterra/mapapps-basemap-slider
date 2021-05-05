@@ -54,6 +54,8 @@ export default class {
         const baseLayerId2 = basemap2.id;
         const baseLayer2 = this._getBaseLayer(baseLayerId2);
         const opacity = v - basemapValue1;
+        baseLayer1.visible = true;
+        baseLayer2.visible = true;
         if (baseLayerId1 === baseLayerId2) {
             baseLayer1.opacity = 1;
             basemap1.active = true;
@@ -77,6 +79,7 @@ export default class {
         const basemapSliderModel = this._basemapSliderModel;
         basemapSliderModel.baselayers.forEach((baselayer) => {
             baselayer.opacity = 0;
+            baselayer.visible = false
         });
         basemapSliderModel.basemaps.forEach((basemap) => {
             basemap.active = false;
