@@ -32,6 +32,8 @@ export default class BasemapSliderWidgetFactory {
      *
      * @private
      */
+
+
     _initComponent() {
         const basemapsModel = this._basemapsModel;
         const model = this._basemapSliderModel;
@@ -102,9 +104,12 @@ export default class BasemapSliderWidgetFactory {
     }
 
     onToolActivated(evt) {
-        this.#tool = evt.tool;
-        const widget = this.getWidget();
-        this._showWindow(widget);
+        async(() => {
+            this.#tool = evt.tool;
+            const widget = this.getWidget();
+            this._showWindow(widget);
+        }, 200);
+
     }
 
     onToolDeactivated() {
