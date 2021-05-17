@@ -16,12 +16,48 @@
 export default class {
 
     activate() {
+        const basemapId = this._properties.basemapId || "basemap_slider"
         const basemapsModel = this._basemapsModel;
+        basemapsModel.watch("basemaps", () => {
+            this._initSlider(basemapId);
+        })
+        basemapsModel.watch("selectedId", ({value}) => {
+            this._checkBaseMap(basemapId, value);
+        })
+        this._checkBaseMap(basemapId, basemapsModel.selectedId);
+        this._initSlider(basemapId)
+    }
+
+    _checkBaseMap(basemapId, value) {
+        const basemapsModel = this._basemapsModel;
+        let basemap = basemapsModel.findItemById(basemapId)?.basemap;
+        if (!basemap && basemapsModel.basemaps.length === 1) {
+            this._tool.set("active", true);
+            return;
+        }
+        if (value === basemapId) {
+            this._tool.set("active", true);
+        } else {
+            this._tool.set("active", false);
+        }
+    }
+
+    _getBaseMap(basemapId){
+        const basemapsModel = this._basemapsModel;
+        let basemap = basemapsModel.findItemById(basemapId)?.basemap;
+        if (!basemap && basemapsModel.basemaps.length === 1) {
+            basemap = basemapsModel.basemaps[0].basemap;
+        }
+        return basemap
+    }
+
+    _initSlider(basemapId) {
+        const basemap = this._getBaseMap(basemapId);
+        const baseLayers = basemap?.baseLayers;
         const basemapSliderModel = this._basemapSliderModel;
-        if (basemapsModel.basemaps.length === 1) {
-            const basemap = basemapsModel.basemaps[0].basemap;
-            const baseLayers = basemap.baseLayers.getItemAt(0).layers;
-            basemapSliderModel.basemaps = baseLayers.map((basemap, i) => {
+        if (basemap && baseLayers?.length > 0) {
+            const groupBaseLayer = baseLayers.getItemAt(0).layers;
+            basemapSliderModel.basemaps = groupBaseLayer.map((basemap, i) => {
                 basemapSliderModel.baselayers.push(basemap);
                 return {
                     id: basemap.id,
@@ -30,8 +66,10 @@ export default class {
                     active: false
                 }
             }).toArray();
-
             this.adjustOpacity(0);
+        } else {
+            console.log("No usable layers found");
+            this._tool.set("active", false);
         }
     }
 

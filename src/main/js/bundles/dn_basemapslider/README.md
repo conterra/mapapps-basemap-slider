@@ -9,6 +9,18 @@ The Basemap Slider Bundle provides a widget that allows you to fade between diff
 
 ### Configuration sample
 
+If you have more than one basemap, you can configure the basemap group id
+
+````json
+"dn_basemapslider": {
+  "BasemapSliderController": {
+    "basemapId": "basemaps"
+  }
+}
+````
+
+Basemap config:
+
 ````json
 "map-init": {
     "Config": {

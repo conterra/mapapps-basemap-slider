@@ -17,12 +17,15 @@ import BasemapSliderWidget from "./BasemapSliderWidget.vue";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import Binding from "apprt-binding/Binding";
+import ct_util from "ct/ui/desktop/util";
+import async from "apprt-core/async";
 
 export default class BasemapSliderWidgetFactory {
 
-    activate() {
-        this._initComponent();
-    }
+    #sliderWidget = null;
+    #serviceRegistration = null;
+    #bundleContext = null;
+    #tool = null;
 
     /**
      * Method to initial the component.
@@ -61,4 +64,65 @@ export default class BasemapSliderWidgetFactory {
         return VueDijit(this.basemapslider, {class: "basemap-slider"});
     }
 
+    _hideWindow() {
+        this.#sliderWidget?.destroy();
+        this.#sliderWidget = null;
+
+        const registration = this.#serviceRegistration;
+
+        // clear the reference
+        this.#serviceRegistration = null;
+
+        if (registration) {
+            // call unregister
+            registration.unregister();
+        }
+        if (this.#tool) {
+            this.#tool.set("active", false);
+        }
+    }
+
+
+    getWidget() {
+        this._initComponent();
+        return VueDijit(this.basemapslider, {class: "basemap-slider"});
+    }
+
+    activate(componentContext) {
+        this.#bundleContext = componentContext.getBundleContext();
+    }
+
+    deactivate() {
+        this._destroyWidget();
+    }
+
+    _destroyWidget() {
+        this.#sliderWidget.destroy();
+        this.#sliderWidget = undefined;
+    }
+
+    onToolActivated(evt) {
+        this.#tool = evt.tool;
+        const widget = this.getWidget();
+        this._showWindow(widget);
+    }
+
+    onToolDeactivated() {
+        this._hideWindow();
+    }
+
+    _showWindow(widget) {
+        const serviceProperties = {
+            "widgetRole": "basemapslider"
+        };
+        const interfaces = ["dijit.Widget"];
+        this.#serviceRegistration = this.#bundleContext.registerService(interfaces, widget, serviceProperties);
+
+        async(() => {
+            const window = ct_util.findEnclosingWindow(content);
+            window.on("Hide", () => {
+                this._hideWindow();
+            });
+        }, 1000);
+    }
 }

@@ -28,12 +28,8 @@
         {
             "name": "BasemapSliderWidgetFactory",
             "provides": [
-                "dijit.Widget"
+                "dn_basemapslider.BasemapSliderWidgetFactory"
             ],
-            "instanceFactory": true,
-            "properties": {
-                "widgetRole": "basemapslider"
-            },
             "references": [
                 {
                     "name": "_basemapSliderModel",
@@ -71,6 +67,37 @@
                 {
                     "name": "_basemapsModel",
                     "providing": "map-basemaps-api.BasemapsModel"
+                },{
+                    "name": "_tool",
+                    "providing": "dn_basemapslider.BasemapSliderTool"
+                }
+            ]
+        },
+        {
+            "name": "BasemapSliderTool",
+            "impl": "ct/tools/Tool",
+            "provides": [
+                "ct.tools.Tool",
+                "dn_basemapslider.BasemapSliderTool"
+            ],
+            "propertiesConstructor": true,
+            "properties": {
+                "id": "basemapSliderTool",
+                "title": "${tool.title}",
+                "tooltip": "${tool.title}",
+                "iconClass": "icon-layer-settings",
+                "activateHandler": "onToolActivated",
+                "deactivateHandler": "onToolDeactivated",
+                "toolRole": "toolset",
+                "togglable": true,
+                "rules": {
+                    "noGroup": true
+                }
+            },
+            "references": [
+                {
+                    "name": "handlerScope",
+                    "providing": "dn_basemapslider.BasemapSliderWidgetFactory"
                 }
             ]
         }
