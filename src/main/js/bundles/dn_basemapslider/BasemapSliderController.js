@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ct_async from "ct/async";
-
 export default class {
 
     activate() {
