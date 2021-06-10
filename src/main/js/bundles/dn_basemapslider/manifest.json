@@ -47,10 +47,15 @@
             ]
         },
         {
-            "name": "BasemapSliderModel",
+            "name": "Config",
+            "impl": "./BasemapSliderModel",
             "provides": "dn_basemapslider.BasemapSliderModel",
             "propertiesConstructor": true,
-            "properties": {}
+            "properties": {
+                "autoplayControl": true,
+                "autoplayInterval": 500,
+                "autoplayOpacityIncrement": 0.5
+            }
         },
         {
             "name": "BasemapSliderController",
@@ -67,7 +72,8 @@
                 {
                     "name": "_basemapsModel",
                     "providing": "map-basemaps-api.BasemapsModel"
-                },{
+                },
+                {
                     "name": "_tool",
                     "providing": "dn_basemapslider.BasemapSliderTool"
                 }

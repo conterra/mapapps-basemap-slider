@@ -39,15 +39,37 @@ export default class BasemapSliderWidgetFactory {
         const model = this._basemapSliderModel;
         const controller = this._basemapSliderController;
         const vm = this.basemapslider = new Vue(BasemapSliderWidget);
+        let autoplayMode = false
 
         vm.$on('adjustOpacity', (value) => {
             controller.adjustOpacity(value);
         });
 
+        vm.$on('autoplay_clicked', () => {
+            autoplayMode = true
+            const maxOpacity = 100 - model.autoplayOpacityIncrement
+
+            const autoplayInterval = setInterval(function(){
+                if(autoplayMode == true && vm.opacity < maxOpacity){
+                    vm.opacity = vm.opacity + model.autoplayOpacityIncrement
+                } else {
+                    clearInterval(autoplayInterval)
+                }
+            }, model.autoplayInterval);
+        });
+
+        vm.$on('autoplay_pause_clicked', () => {
+            autoplayMode = false
+        });
+
+        vm.$on('autoplay_reset_clicked', () => {
+            vm.opacity = 0
+        });
+
         Binding
             .create()
             .bindTo(vm, model)
-            .syncAll("basemaps", "opacity", "baselayer")
+            .syncAll("basemaps", "opacity", "baselayer", "autoplayControl", "autoplayInterval", "autoplayOpacityIncrement")
             .syncToLeftNow()
             .enable();
 

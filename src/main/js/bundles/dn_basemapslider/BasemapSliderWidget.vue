@@ -34,6 +34,28 @@
                 class="pt-10"
                 hide-details/>
         </v-flex>
+        <v-flex
+            v-if="autoplayControl === true"
+            xs12
+            px-4
+            align-center
+        >
+            <v-btn
+                @click="$emit('autoplay_clicked')"
+            >
+                {{ "Autoplay" }}
+            </v-btn>
+            <v-btn
+                @click="$emit('autoplay_pause_clicked')"
+            >
+                {{ "Stop" }}
+            </v-btn>
+            <v-btn
+                @click="$emit('autoplay_reset_clicked')"
+            >
+                {{ "Reset" }}
+            </v-btn>
+        </v-flex>
     </v-flex>
 </template>
 <script>
@@ -57,6 +79,10 @@
                 const count = this.basemaps.length;
                 this.opacity = value * 100 / (count - 1);
             }
+        },
+        autoplayControl: {
+            type: Boolean,
+            default: () => false
         }
     }
 </script>

@@ -22,6 +22,9 @@ export default declare({
 
     opacity: 0,
     basemaps: [],
-    baselayers: []
+    baselayers: [],
+    autoplayControl: undefined,
+    autoplayTimeInterval: undefined,
+    autoplayOpacityIncrement: undefined
 
 });
