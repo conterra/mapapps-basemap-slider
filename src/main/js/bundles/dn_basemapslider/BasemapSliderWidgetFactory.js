@@ -26,54 +26,57 @@ export default class BasemapSliderWidgetFactory {
     #serviceRegistration = null;
     #bundleContext = null;
     #tool = null;
+    #basmapSliderModelBinding = null;
+    #basemapBinding = null;
+
+    activate(componentContext) {
+        this.#bundleContext = componentContext.getBundleContext();
+    }
+
+    deactivate() {
+        this._destroyWidget();
+        const vm = this.basemapslider;
+        vm.$off();
+
+        this.#basmapSliderModelBinding.unbind();
+        this.#basmapSliderModelBinding= null;
+
+        this.#basemapBinding.unbind();
+        this.#basemapBinding= null;
+    }
 
     /**
      * Method to initial the component.
      *
      * @private
      */
-
-
     _initComponent() {
         const basemapsModel = this._basemapsModel;
         const model = this._basemapSliderModel;
         const controller = this._basemapSliderController;
         const vm = this.basemapslider = new Vue(BasemapSliderWidget);
-        let autoplayMode = false
 
-        vm.$on('adjustOpacity', (value) => {
+        vm.$on('adjust-opacity', (value) => {
             controller.adjustOpacity(value);
         });
 
-        vm.$on('autoplay_clicked', () => {
-            autoplayMode = true
-            const maxOpacity = 100 - model.autoplayOpacityIncrement
-
-            const autoplayInterval = setInterval(function(){
-                if(autoplayMode == true && vm.opacity < maxOpacity){
-                    vm.opacity = vm.opacity + model.autoplayOpacityIncrement
-                } else {
-                    clearInterval(autoplayInterval)
-                }
-            }, model.autoplayInterval);
+        vm.$on('autoplay-clicked', () => {
+            controller.startAutoplay();
         });
 
-        vm.$on('autoplay_pause_clicked', () => {
-            autoplayMode = false
+        vm.$on('autoplay-pause-clicked', () => {
+            controller.stopAutoplay();
         });
 
-        vm.$on('autoplay_reset_clicked', () => {
-            vm.opacity = 0
-        });
-
-        Binding
+        this.#basmapSliderModelBinding = Binding
             .create()
             .bindTo(vm, model)
-            .syncAll("basemaps", "opacity", "baselayer", "autoplayControl", "autoplayInterval", "autoplayOpacityIncrement")
-            .syncToLeftNow()
-            .enable();
+            .syncAll("opacity")
+            .syncAllToLeft("basemaps", "autoplayEnabled")
+            .enable()
+            .syncToLeftNow();
 
-        Binding
+        this.#basemapBinding = Binding
             .create()
             .bindTo(vm, basemapsModel)
             .enable();
@@ -110,14 +113,6 @@ export default class BasemapSliderWidgetFactory {
     getWidget() {
         this._initComponent();
         return VueDijit(this.basemapslider, {class: "basemap-slider"});
-    }
-
-    activate(componentContext) {
-        this.#bundleContext = componentContext.getBundleContext();
-    }
-
-    deactivate() {
-        this._destroyWidget();
     }
 
     _destroyWidget() {

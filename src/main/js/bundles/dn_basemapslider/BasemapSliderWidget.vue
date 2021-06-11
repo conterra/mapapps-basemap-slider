@@ -35,23 +35,23 @@
                 hide-details/>
         </v-flex>
         <v-flex
-            v-if="autoplayControl === true"
+            v-if="autoplayEnabled === true"
             xs12
             px-4
             align-center
         >
             <v-btn
-                @click="$emit('autoplay_clicked')"
+                @click="$emit('autoplay-clicked')"
             >
                 {{ "Autoplay" }}
             </v-btn>
             <v-btn
-                @click="$emit('autoplay_pause_clicked')"
+                @click="$emit('autoplay-pause-clicked')"
             >
                 {{ "Stop" }}
             </v-btn>
             <v-btn
-                @click="$emit('autoplay_reset_clicked')"
+                @click="opacity = 0"
             >
                 {{ "Reset" }}
             </v-btn>
@@ -63,15 +63,23 @@
 
     export default {
         mixins: [Bindable],
-        data: function () {
-            return {
-                basemaps: [],
-                opacity: 0
-            };
+        props: {
+            basemaps: {
+                type: Array,
+                default: () => []
+            },
+            opacity: {
+                type: Number,
+                default: 0
+            },
+            autoplayEnabled: {
+                type: Boolean,
+                default: () => false
+            }
         },
         watch: {
             opacity(val) {
-                this.$emit('adjustOpacity', val);
+                this.$emit('adjust-opacity', val);
             }
         },
         methods: {
@@ -79,10 +87,6 @@
                 const count = this.basemaps.length;
                 this.opacity = value * 100 / (count - 1);
             }
-        },
-        autoplayControl: {
-            type: Boolean,
-            default: () => false
         }
     }
 </script>

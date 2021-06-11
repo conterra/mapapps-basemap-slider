@@ -16,8 +16,8 @@
 export default class {
 
     activate() {
-        const basemapId = this._properties.basemapId || "basemap_slider"
         const basemapsModel = this._basemapsModel;
+        const basemapId = basemapsModel.basemapId;
         basemapsModel.watch("basemaps", () => {
             this._initSlider(basemapId);
         })
@@ -25,12 +25,12 @@ export default class {
             this._checkBaseMap(basemapId, value);
         })
         this._checkBaseMap(basemapId, basemapsModel.selectedId);
-        this._initSlider(basemapId)
+        this._initSlider(basemapId);
     }
 
     _checkBaseMap(basemapId, value) {
         const basemapsModel = this._basemapsModel;
-        let basemap = basemapsModel.findItemById(basemapId)?.basemap;
+        const basemap = basemapsModel.findItemById(basemapId)?.basemap;
         if (!basemap && basemapsModel.basemaps.length === 1) {
             this._tool.set("active", true);
             return;
@@ -107,6 +107,31 @@ export default class {
             }
         }
         baseLayer1.emit("refresh");
+    }
+
+    /**
+     * Method that starts the autoplay
+     */
+    startAutoplay() {
+        const basemapSliderModel = this._basemapSliderModel;
+        basemapSliderModel.autoplayActive = true;
+        const maxOpacity = 100 - basemapSliderModel.autoplayOpacityIncrement;
+
+        const autoplayInterval = setInterval(function () {
+            if (basemapSliderModel.autoplayActive && basemapSliderModel.opacity < maxOpacity) {
+                basemapSliderModel.opacity = basemapSliderModel.opacity + basemapSliderModel.autoplayOpacityIncrement;
+            } else {
+                clearInterval(autoplayInterval);
+            }
+        }, basemapSliderModel.autoplayInterval);
+    }
+
+    /**
+     * Method that stops the autoplay
+     */
+    stopAutoplay() {
+        const basemapSliderModel = this._basemapSliderModel;
+        basemapSliderModel.autoplayActive = false;
     }
 
     /**

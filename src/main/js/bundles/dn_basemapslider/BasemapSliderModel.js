@@ -23,7 +23,9 @@ export default declare({
     opacity: 0,
     basemaps: [],
     baselayers: [],
-    autoplayControl: undefined,
+    basemapId: "basemap_slider",
+    autoplayActive: false,
+    autoplayEnabled: undefined,
     autoplayTimeInterval: undefined,
     autoplayOpacityIncrement: undefined
 

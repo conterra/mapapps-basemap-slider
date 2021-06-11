@@ -4,7 +4,7 @@ The Basemap Slider Bundle provides a widget that allows you to fade between diff
 
 ## Usage
 
-1. Add the bundle "dn_selectionactions" to your map.apps 4 app.
+1. Add the bundle "dn_basemapslider" to your map.apps 4 app.
 2. Add basemaps to your app.
 
 ### Configuration sample
@@ -13,9 +13,12 @@ If you have more than one basemap, you can configure the basemap group id
 
 ````json
 "dn_basemapslider": {
-  "BasemapSliderController": {
-    "basemapId": "basemaps"
-  }
+    "Config": {
+        "basemapId": "basemap_slider",
+        "autoplayEnabled": true,
+        "autoplayInterval": 500,
+        "autoplayOpacityIncrement": 0.5
+    }
 }
 ````
 

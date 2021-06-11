@@ -52,7 +52,8 @@
             "provides": "dn_basemapslider.BasemapSliderModel",
             "propertiesConstructor": true,
             "properties": {
-                "autoplayControl": true,
+                "basemapId": "basemap_slider",
+                "autoplayEnabled": false,
                 "autoplayInterval": 500,
                 "autoplayOpacityIncrement": 0.5
             }

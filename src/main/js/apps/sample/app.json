@@ -75,15 +75,18 @@
             ]
         },
         "dn_basemapslider": {
-            "BasemapSliderModel": {
-                "showInMapflow": false
+            "Config": {
+                "basemapId": "basemap_slider",
+                "autoplayEnabled": true,
+                "autoplayInterval": 500,
+                "autoplayOpacityIncrement": 0.5
             }
         },
         "map-init": {
             "Config": {
                 "basemaps": [
                     {
-                        "id": "basemaps",
+                        "id": "basemap_slider",
                         "title": "Basemap Group",
                         "description": "This is a group of basemaps",
                         "selected": true,
