@@ -55,6 +55,7 @@ export default class BasemapSliderWidgetFactory {
         const model = this._basemapSliderModel;
         const controller = this._basemapSliderController;
         const vm = this.basemapslider = new Vue(BasemapSliderWidget);
+        vm.i18n = this._i18n.get()
 
         vm.$on('adjust-opacity', (value) => {
             controller.adjustOpacity(value);

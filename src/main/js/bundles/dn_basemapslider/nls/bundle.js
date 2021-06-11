@@ -23,6 +23,11 @@ module.exports = {
         tool: {
             title: "Basemap Slider",
             tooltip: "Basemap Slider"
+        },
+        buttons: {
+            autoplay: "Play",
+            stop: "Pause",
+            reset: "Reset"
         }
     }),
     "de": true
