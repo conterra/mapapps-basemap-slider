@@ -122,6 +122,7 @@ export default class {
                 basemapSliderModel.opacity = basemapSliderModel.opacity + basemapSliderModel.autoplayOpacityIncrement;
             } else {
                 clearInterval(autoplayInterval);
+                basemapSliderModel.autoplayActive = false;
             }
         }, basemapSliderModel.autoplayInterval);
     }
