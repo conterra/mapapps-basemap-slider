@@ -42,23 +42,25 @@
                 align-center
             >
                 <v-btn
-                    :class="{ primary: autoplayActive }"
+                    :class="{ primary: autoplayActive, secondary: !autoplayActive }"
                     @click="$emit('autoplay-clicked')"
                 >
                     <v-icon left>play_circle_outline</v-icon>
-                    {{ "Autoplay" }}
+                    {{ i18n.buttons.autoplay }}
                 </v-btn>
                 <v-btn
+                    class="secondary"
                     @click="$emit('autoplay-pause-clicked')"
                 >
                     <v-icon left>pause</v-icon>
-                    {{ "Stop" }}
+                    {{ i18n.buttons.stop }}
                 </v-btn>
                 <v-btn
+                    class="secondary"
                     @click="opacity = 0"
                 >
                     <v-icon left>replay</v-icon>
-                    {{ "Reset" }}
+                    {{ i18n.buttons.reset }}
                 </v-btn>
             </v-flex>
         </v-flex>
