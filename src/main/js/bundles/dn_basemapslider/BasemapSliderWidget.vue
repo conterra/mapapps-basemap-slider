@@ -16,47 +16,53 @@
 
 -->
 <template>
-    <v-flex>
-        <v-chip
-            v-for="basemap in basemaps"
-            :id="basemap.id"
-            :key="basemap.id"
-            :class="{ primary: basemap.active }"
-            label
-            @click="goToLayer(basemap.value)">
-            {{ basemap.title }}
-        </v-chip>
-        <v-flex
-            xs12
-            px-4>
-            <v-slider
-                v-model="opacity"
-                class="pt-10"
-                hide-details/>
+    <v-card>
+        <v-flex>
+            <v-chip
+                v-for="basemap in basemaps"
+                :id="basemap.id"
+                :key="basemap.id"
+                :class="{ primary: basemap.active }"
+                label
+                @click="goToLayer(basemap.value)">
+                {{ basemap.title }}
+            </v-chip>
+            <v-flex
+                xs12
+                px-4>
+                <v-slider
+                    v-model="opacity"
+                    class="pt-10"
+                    hide-details/>
+            </v-flex>
+            <v-flex
+                v-if="autoplayEnabled === true"
+                xs12
+                px-4
+                align-center
+            >
+                <v-btn
+                    :class="{ primary: autoplayActive }"
+                    @click="$emit('autoplay-clicked')"
+                >
+                    <v-icon left>play_circle_outline</v-icon>
+                    {{ "Autoplay" }}
+                </v-btn>
+                <v-btn
+                    @click="$emit('autoplay-pause-clicked')"
+                >
+                    <v-icon left>pause</v-icon>
+                    {{ "Stop" }}
+                </v-btn>
+                <v-btn
+                    @click="opacity = 0"
+                >
+                    <v-icon left>replay</v-icon>
+                    {{ "Reset" }}
+                </v-btn>
+            </v-flex>
         </v-flex>
-        <v-flex
-            v-if="autoplayEnabled === true"
-            xs12
-            px-4
-            align-center
-        >
-            <v-btn
-                @click="$emit('autoplay-clicked')"
-            >
-                {{ "Autoplay" }}
-            </v-btn>
-            <v-btn
-                @click="$emit('autoplay-pause-clicked')"
-            >
-                {{ "Stop" }}
-            </v-btn>
-            <v-btn
-                @click="opacity = 0"
-            >
-                {{ "Reset" }}
-            </v-btn>
-        </v-flex>
-    </v-flex>
+    </v-card>
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
@@ -73,6 +79,10 @@
                 default: 0
             },
             autoplayEnabled: {
+                type: Boolean,
+                default: () => false
+            },
+            autoplayActive: {
                 type: Boolean,
                 default: () => false
             }
