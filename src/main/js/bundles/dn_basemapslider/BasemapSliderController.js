@@ -17,7 +17,7 @@ export default class {
 
     activate() {
         const basemapsModel = this._basemapsModel;
-        const basemapId = basemapsModel.basemapId;
+        const basemapId = this._basemapSliderModel.basemapId;
         basemapsModel.watch("basemaps", () => {
             this._initSlider(basemapId);
         })
