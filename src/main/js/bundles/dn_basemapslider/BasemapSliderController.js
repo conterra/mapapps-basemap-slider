@@ -24,17 +24,13 @@ export default class {
         basemapsModel.watch("selectedId", ({value}) => {
             this._checkBaseMap(basemapId, value);
         })
+
         this._checkBaseMap(basemapId, basemapsModel.selectedId);
         this._initSlider(basemapId);
+
     }
 
     _checkBaseMap(basemapId, value) {
-        const basemapsModel = this._basemapsModel;
-        const basemap = basemapsModel.findItemById(basemapId)?.basemap;
-        if (!basemap && basemapsModel.basemaps.length === 1) {
-            this._tool.set("active", true);
-            return;
-        }
         if (value === basemapId) {
             this._tool.set("active", true);
         } else {
@@ -42,7 +38,7 @@ export default class {
         }
     }
 
-    _getBaseMap(basemapId){
+    _getBaseMap(basemapId) {
         const basemapsModel = this._basemapsModel;
         let basemap = basemapsModel.findItemById(basemapId)?.basemap;
         if (!basemap && basemapsModel.basemaps.length === 1) {
@@ -55,7 +51,7 @@ export default class {
         const basemap = this._getBaseMap(basemapId);
         const baseLayers = basemap?.baseLayers;
         const basemapSliderModel = this._basemapSliderModel;
-        if (basemap && baseLayers?.length > 0) {
+        if (basemap && baseLayers?.length > 0 && baseLayers.getItemAt(0).layers) {
             const groupBaseLayer = baseLayers.getItemAt(0).layers;
             basemapSliderModel.basemaps = groupBaseLayer.map((basemap, i) => {
                 basemapSliderModel.baselayers.push(basemap);
