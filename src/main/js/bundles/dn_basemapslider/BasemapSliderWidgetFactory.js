@@ -55,7 +55,7 @@ export default class BasemapSliderWidgetFactory {
         const model = this._basemapSliderModel;
         const controller = this._basemapSliderController;
         const vm = this.basemapslider = new Vue(BasemapSliderWidget);
-        vm.i18n = this._i18n.get()
+        vm.i18n = this._i18n.get();
 
         vm.$on('adjust-opacity', (value) => {
             controller.adjustOpacity(value);
@@ -142,8 +142,8 @@ export default class BasemapSliderWidgetFactory {
         this.#serviceRegistration = this.#bundleContext.registerService(interfaces, widget, serviceProperties);
 
         async(() => {
-            const window = ct_util.findEnclosingWindow(content);
-            window.on("Hide", () => {
+            const window = ct_util.findEnclosingWindow(widget);
+            window?.on("Hide", () => {
                 this._hideWindow();
             });
         }, 1000);
