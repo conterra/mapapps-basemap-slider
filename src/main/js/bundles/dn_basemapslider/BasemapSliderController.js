@@ -102,7 +102,7 @@ export default class {
                 basemap2.active = true;
             }
         }
-        baseLayer1.emit("refresh");
+        baseLayer1.emit("refresh", {dataChanged: true});
     }
 
     /**
