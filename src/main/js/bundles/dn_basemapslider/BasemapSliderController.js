@@ -98,13 +98,7 @@ export default class {
             if (baseLayer1.type === "group") {
                 baseLayer1.layers.forEach(layer => layer.opacity = baseLayer1.opacity);
             }
-            if (baseLayer1.type === "group") {
-                baseLayer1.layers.forEach(layer => layer.opacity = baseLayer1.opacity);
-            }
             baseLayer2.opacity = opacity;
-            if (baseLayer2.type === "group") {
-                baseLayer2.layers.forEach(layer => layer.opacity = baseLayer2.opacity);
-            }
             if (baseLayer2.type === "group") {
                 baseLayer2.layers.forEach(layer => layer.opacity = baseLayer2.opacity);
             }
