@@ -20,10 +20,10 @@ export default class {
         const basemapId = this._basemapSliderModel.basemapId;
         basemapsModel.watch("basemaps", () => {
             this._initSlider(basemapId);
-        })
+        });
         basemapsModel.watch("selectedId", ({value}) => {
             this._checkBaseMap(basemapId, value);
-        })
+        });
 
         this._checkBaseMap(basemapId, basemapsModel.selectedId);
         this._initSlider(basemapId);
@@ -44,7 +44,7 @@ export default class {
         if (!basemap && basemapsModel.basemaps.length === 1) {
             basemap = basemapsModel.basemaps[0].basemap;
         }
-        return basemap
+        return basemap;
     }
 
     _initSlider(basemapId) {
@@ -60,11 +60,11 @@ export default class {
                     title: basemap.title,
                     value: i,
                     active: false
-                }
+                };
             }).toArray();
             this.adjustOpacity(0);
         } else {
-            console.log("No usable layers found");
+            console.info("No usable layers found");
             this._tool.set("active", false);
         }
     }
@@ -95,7 +95,13 @@ export default class {
             basemap1.active = true;
         } else {
             baseLayer1.opacity = 1 - opacity;
+            if (baseLayer1.type === "group") {
+                baseLayer1.layers.forEach(layer => layer.opacity = baseLayer1.opacity);
+            }
             baseLayer2.opacity = opacity;
+            if (baseLayer2.type === "group") {
+                baseLayer2.layers.forEach(layer => layer.opacity = baseLayer2.opacity);
+            }
             if (opacity <= 0.5) {
                 basemap1.active = true;
             } else {
@@ -140,7 +146,7 @@ export default class {
         const basemapSliderModel = this._basemapSliderModel;
         basemapSliderModel.baselayers.forEach((baselayer) => {
             baselayer.opacity = 0;
-            baselayer.visible = false
+            baselayer.visible = false;
         });
         basemapSliderModel.basemaps.forEach((basemap) => {
             basemap.active = false;
@@ -156,9 +162,7 @@ export default class {
      */
     _getBaseLayer(id) {
         const basemapSliderModel = this._basemapSliderModel;
-        return basemapSliderModel.baselayers.find((baselayer) => {
-            return baselayer.id === id;
-        })
+        return basemapSliderModel.baselayers.find((baselayer) => baselayer.id === id);
     }
 
     /**
@@ -170,9 +174,7 @@ export default class {
      */
     _getBaseLayerForValue(value) {
         const basemapSliderModel = this._basemapSliderModel;
-        return basemapSliderModel.basemaps.find((basemap) => {
-            return basemap.value === value;
-        });
+        return basemapSliderModel.basemaps.find((basemap) => basemap.value === value);
     }
 
 }
