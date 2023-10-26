@@ -90,9 +90,13 @@ export default class {
         const opacity = v - basemapValue1;
         baseLayer1.visible = true;
         baseLayer2.visible = true;
+
         if (baseLayerId1 === baseLayerId2) {
             baseLayer1.opacity = 1;
             basemap1.active = true;
+            if (baseLayer1.type === "group") {
+                baseLayer1.layers.forEach(layer => layer.opacity = baseLayer1.opacity);
+            }
         } else {
             baseLayer1.opacity = 1 - opacity;
             if (baseLayer1.type === "group") {
