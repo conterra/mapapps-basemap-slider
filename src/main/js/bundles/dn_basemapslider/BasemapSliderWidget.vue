@@ -33,7 +33,9 @@
                 <v-slider
                     v-model="opacity"
                     class="pt-10"
-                    hide-details/>
+                    hide-details
+                    step="count"
+                />
             </v-flex>
             <v-flex
                 v-if="autoplayEnabled === true"
@@ -89,6 +91,11 @@
                 default: () => false
             }
         },
+        computed: {
+            count() {
+                return this.basemaps.length;
+            }
+        },
         watch: {
             opacity(val) {
                 this.$emit('adjust-opacity', val);
@@ -96,8 +103,7 @@
         },
         methods: {
             goToLayer: function (value) {
-                const count = this.basemaps.length;
-                this.opacity = value * 100 / (count - 1);
+                this.opacity = value * 100 / (this.count - 1);
             }
         }
     };
