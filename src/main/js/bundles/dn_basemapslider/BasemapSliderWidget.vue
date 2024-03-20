@@ -24,16 +24,20 @@
                 :key="basemap.id"
                 :class="{ primary: basemap.active }"
                 label
-                @click="goToLayer(basemap.value)">
+                @click="goToLayer(basemap.value)"
+            >
                 {{ basemap.title }}
             </v-chip>
             <v-flex
                 xs12
-                px-4>
+                px-4
+            >
                 <v-slider
                     v-model="opacity"
                     class="pt-10"
-                    hide-details/>
+                    hide-details
+                    step="count"
+                />
             </v-flex>
             <v-flex
                 v-if="autoplayEnabled === true"
@@ -45,21 +49,27 @@
                     :class="{ primary: autoplayActive, secondary: !autoplayActive }"
                     @click="$emit('autoplay-clicked')"
                 >
-                    <v-icon left>play_circle_outline</v-icon>
+                    <v-icon left>
+                        play_circle_outline
+                    </v-icon>
                     {{ i18n.buttons.autoplay }}
                 </v-btn>
                 <v-btn
                     class="secondary"
                     @click="$emit('autoplay-pause-clicked')"
                 >
-                    <v-icon left>pause</v-icon>
+                    <v-icon left>
+                        pause
+                    </v-icon>
                     {{ i18n.buttons.stop }}
                 </v-btn>
                 <v-btn
                     class="secondary"
                     @click="opacity = 0"
                 >
-                    <v-icon left>replay</v-icon>
+                    <v-icon left>
+                        replay
+                    </v-icon>
                     {{ i18n.buttons.reset }}
                 </v-btn>
             </v-flex>
@@ -89,6 +99,11 @@
                 default: () => false
             }
         },
+        computed: {
+            count() {
+                return this.basemaps.length;
+            }
+        },
         watch: {
             opacity(val) {
                 this.$emit('adjust-opacity', val);
@@ -96,8 +111,7 @@
         },
         methods: {
             goToLayer: function (value) {
-                const count = this.basemaps.length;
-                this.opacity = value * 100 / (count - 1);
+                this.opacity = value * 100 / (this.count - 1);
             }
         }
     };
