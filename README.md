@@ -20,21 +20,20 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_basemapslider/index.h
 [dn_basemapslider Documentation](https://github.com/conterra/mapapps-basemap-slider/tree/master/src/main/js/bundles/dn_basemapslider)
 ## Requirements
 
-## Development Guide
-### Define the mapapps remote base
-Before you can run the project you have to define the mapapps.remote.base property in the pom.xml-file:
-`<mapapps.remote.base>http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%</mapapps.remote.base>`
--   map.apps 4.13.1
--   All resources from `map.apps-VERSION/sdk/m2-repository` need to be copied manually to your local Maven repository (e.g. `%UserProfile%/.m2/repository` for Windows, `~/.m2/repository` for MacOS).
+## Quick start
 
-### Other methods to to define the mapapps.remote.base property.
-1. Goal parameters
-   `mvn install -Dmapapps.remote.base=http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%`
-## More Information
+Clone this project and ensure that you have all required dependencies installed correctly (see [Documentation](https://docs.conterra.de/en/mapapps/latest/developersguide/getting-started/set-up-development-environment.html)).
 
-2. Build properties
-   Change the mapapps.remote.base in the build.properties file and run:
-   `mvn install -Denv=dev -Dlocal.configfile=%ABSOLUTEPATHTOPROJECTROOT%/build.properties`
+Then run the following commands from the project root directory to start a local development server:
 
-The project is always based on the latest version of the [mapapps-4-developers Project](https://github.com/conterra/mapapps-4-developers).
+```bash
+# install all required node modules
+$ mvn initialize
+
+# start dev server
+$ mvn compile -Denv=dev -Pinclude-mapapps-deps
+
+# run unit tests
+$ mvn test -P run-js-tests,include-mapapps-deps
+```
 
