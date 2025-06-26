@@ -15,24 +15,89 @@
  */
 module.exports = {
     apptitle: "Basemap Slider Sample",
-    custominfo: {
-        content: "Diese App zeigt das Basemap Slider Bundle, welches es erm\u00F6glicht, Grundkarten ineinander zu \u00fcberblenden. Um die Funktionalit\u00e4t auszuprobieren, benutzen Sie den Slider in der rechten oberen Ecke"
+    map: {
+        koeln1: {
+            title: "Basisdaten",
+            districts: {
+                title: "Stadtviertel",
+                text: "Das K\xF6lner Stadtviertel <b>{STV_NAME}</b>."
+            },
+            boroughs: {
+                title: "Stadtteile",
+                text: "Der Stadtteil <b>{NAME}</b> liegt im K\xF6lner Stadtbezirk {STADTBEZIR}."
+            },
+            precints: {
+                title: "Stadtbezirke",
+                text: "Der K\xF6lner Stadtbezirk <b>{NAME}</b>."
+            }
+        },
+        koeln2: {
+            title: "Bildung und Kultur",
+            description: "Liste aller Bibliotheken, Museen und Schulen in Köln.",
+            libraries: {
+                title: "Bibliotheken"
+            },
+            museums: {
+                title: "Museen",
+                text: "Das Museum <b>{NAME}</b> liegt im K\xF6lner Stadtteil {STADTTEIL}."
+            },
+            schools: {
+                title: "Schulen",
+                text: ""
+            }
+        },
+        koeln3: {
+            title: "Freizeit",
+            sights: {
+                title: "Sehensw\xFCrdigkeiten",
+                titleSingle: "Sehensw\xFCrdigkeit",
+                text: "Die Sehensw\xFCrdigkeit <b>{NAME}</b> liegt im K\xF6lner Stadtteil {STADTTEIL}."
+            },
+            playgrounds: {
+                title: "Spiel- und Sportpl\xE4tze",
+                text: "<b>{Spielplatzname}</b> liegt im K\xF6lner Stadtteil {Stadtteil}.",
+                baskets: "Basketballk\xF6rbe",
+                goals: "Fussballtore",
+                tables: "Tischtennis Tische",
+                walls: "Torwand",
+                skate: "Skaten",
+                misc: "Sonstiges"
+            },
+            places: {
+                title: "Veranstaltungsorte",
+                titleSingle: "Veranstaltungsort",
+                text: "<b>{NAME}</b> ist ein {expression/carrier} Veranstaltungsort."
+            }
+        },
+        basemaps: {
+            gray: "Stra\xDFenkarte (grau)",
+            streets: "Stra\xDFenkarte",
+            topo: "Topographische Karte",
+            hybrid: "Luftbild (hybrid)",
+            basemapsliderGroup: "BasemapSlider Gruppe"
+        }
     },
     tool:{
         title: "Basemap Slider",
         tooltip: "Basemap Slider"
     },
+    tools: {
+        drawerLeft: "Werkzeuge",
+        measuring: "Messwerkzeuge"
+    },
     common: {
         number: "Nummer",
-        area: "Fl\u00E4che [ha]",
-        totalArea: "Anteil an Gesamtfl\u00E4che [%]",
+        area: "Fl\xE4che [ha]",
+        totalArea: "Anteil an Gesamtfl\xE4che [%]",
         name: "Name",
-        provider: "Tr\u00E4ger",
+        provider: "Tr\xE4ger",
         address: "Adresse",
         furtherinfo: "Weitere Informationen",
         precint: "Stadtbezirk",
         district: "Stadtviertel",
         private: "private",
-        municipal: "st\u00E4dtischer"
+        municipal: "st\xE4dtischer",
+        zip: "PLZ",
+        type: "Art"
     }
 };
