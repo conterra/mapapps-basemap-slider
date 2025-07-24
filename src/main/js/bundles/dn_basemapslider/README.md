@@ -17,7 +17,8 @@ If you have more than one basemap, you can configure the basemap group id
         "basemapId": "basemap_slider",
         "autoplayEnabled": true,
         "autoplayInterval": 500,
-        "autoplayOpacityIncrement": 0.5
+        "autoplayOpacityIncrement": 0.5,
+        "forceBasemapSelection": false
     }
 }
 ````

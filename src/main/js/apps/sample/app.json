@@ -50,7 +50,8 @@
                 "basemapId": "basemap_slider",
                 "autoplayEnabled": true,
                 "autoplayInterval": 500,
-                "autoplayOpacityIncrement": 0.5
+                "autoplayOpacityIncrement": 0.5,
+                "forceBasemapSelection": false
             }
         },
         "agssearch": {
@@ -102,12 +103,12 @@
                         "id": "hybrid",
                         "basemap": "hybrid",
                         "title": "${map.basemaps.hybrid}",
+                        "selected": true,
                         "thumbnailUrl": "resource('${app}:/assets/hybrid.png')"
                     },
                     {
                         "id": "basemap_slider",
                         "title": "${map.basemaps.basemapsliderGroup}",
-                        "selected": true,
                         "basemap": {
                             "type": "GROUP",
                             "layers": [

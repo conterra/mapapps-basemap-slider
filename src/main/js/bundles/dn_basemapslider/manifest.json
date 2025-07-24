@@ -6,11 +6,15 @@
     "vendor": "con terra GmbH",
     "productName": "devnet-mapapps-basemapslider",
     "dependencies": {
+        "ct": "^4.2.0",
         "apprt-vue": "^4.2.0",
+        "apprt-core": "^4.2.0",
         "apprt-binding": "^4.2.0",
         "apprt-vuetify": "^4.2.0"
     },
-    "i18n": ["bundle"],
+    "i18n": [
+        "bundle"
+    ],
     "main": "",
     "CSS-Themes-Extension": [
         {
@@ -27,6 +31,19 @@
         }
     ],
     "components": [
+        {
+            "name": "Config",
+            "impl": "./BasemapSliderModel",
+            "provides": "dn_basemapslider.BasemapSliderModel",
+            "propertiesConstructor": true,
+            "properties": {
+                "basemapId": "basemap_slider",
+                "autoplayEnabled": false,
+                "autoplayInterval": 500,
+                "autoplayOpacityIncrement": 0.5,
+                "forceBasemapSelection": true
+            }
+        },
         {
             "name": "BasemapSliderWidgetFactory",
             "provides": [
@@ -47,18 +64,6 @@
                     "providing": "map-basemaps-api.BasemapsModel"
                 }
             ]
-        },
-        {
-            "name": "Config",
-            "impl": "./BasemapSliderModel",
-            "provides": "dn_basemapslider.BasemapSliderModel",
-            "propertiesConstructor": true,
-            "properties": {
-                "basemapId": "basemap_slider",
-                "autoplayEnabled": false,
-                "autoplayInterval": 500,
-                "autoplayOpacityIncrement": 0.5
-            }
         },
         {
             "name": "BasemapSliderController",
