@@ -182,13 +182,13 @@ export class BasemapSliderController {
         });
     }
 
-    private getBaseLayer(id: string): any {
+    private getBaseLayer(id: string): BasemapConfig | undefined {
         const basemapSliderModel = this._basemapSliderModel!;
 
         return basemapSliderModel.baselayers.find((baselayer: BasemapConfig) => baselayer.id === id);
     }
 
-    private getBaseLayerForValue(value: number): any {
+    private getBaseLayerForValue(value: number): BasemapConfig | undefined {
         const basemapSliderModel = this._basemapSliderModel!;
         return basemapSliderModel.basemaps.find((basemap: BasemapConfig) => basemap.value === value);
     }
