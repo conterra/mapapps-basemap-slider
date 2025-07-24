@@ -17,14 +17,15 @@
 import { Mutable, properties } from "apprt-core/Mutable";
 
 export interface BasemapSliderModelProperties {
-    opacity: 0,
-    basemaps: [],
-    baselayers: [],
-    basemapId: "basemap_slider",
-    autoplayActive: false,
-    autoplayEnabled: undefined,
-    autoplayTimeInterval: undefined,
-    autoplayOpacityIncrement: undefined
+    opacity: number,
+    basemaps: __esri.Basemap[],
+    baselayers: __esri.Layer[],
+    basemapId: string,
+    autoplayActive: boolean,
+    autoplayEnabled: boolean,
+    autoplayTimeInterval: number,
+    autoplayOpacityIncrement: number,
+    forceBasemapSelection: boolean
 }
 
 export class BasemapSliderModel extends Mutable { }
@@ -37,5 +38,6 @@ properties(BasemapSliderModel, {
     autoplayActive: false,
     autoplayEnabled: undefined,
     autoplayTimeInterval: undefined,
-    autoplayOpacityIncrement: undefined
+    autoplayOpacityIncrement: undefined,
+    forceBasemapSelection: false
 });

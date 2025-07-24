@@ -18,16 +18,21 @@ import type { InjectedReference } from "apprt-core/InjectedReference";
 import type { BasemapsModel } from "map-basemaps-api/api";
 import type { BasemapSliderModel } from "./BasemapSliderModel";
 import type { BasemapConfig } from "./api";
+import type { MapWidgetModel } from "map-widget/api";
 import type Tool from "ct/tools/Tool";
 
 export class BasemapSliderController {
     private _tool: InjectedReference<typeof Tool>;
+    private _mapWidgetModel?: InjectedReference<MapWidgetModel>;
     private _basemapsModel: InjectedReference<BasemapsModel>;
     private _basemapSliderModel: InjectedReference<BasemapSliderModel>;
 
     activate(): void {
+        const tool = this._tool;
+        const model = this._basemapSliderModel!;
         const basemapsModel = this._basemapsModel!;
-        const basemapId = this._basemapSliderModel!.basemapId;
+
+        const basemapId = model.basemapId;
 
         basemapsModel.watch("basemaps", () => {
             this.initSlider(basemapId);
@@ -36,9 +41,19 @@ export class BasemapSliderController {
             this.checkBaseMap(basemapId, value);
         });
 
+        tool.watch("active", (evt: boolean) => {
+            if (evt && model.forceBasemapSelection) {
+                this.setSelectedBasemap(basemapId);
+            }
+        });
+
         this.checkBaseMap(basemapId, basemapsModel.selectedId);
         this.initSlider(basemapId);
+    }
 
+    private setSelectedBasemap(basemapId: string): void {
+        const basemapsModel = this._basemapsModel!;
+        basemapsModel.selectedId = basemapId;
     }
 
     private checkBaseMap(basemapId: string, value: string | undefined): void {
@@ -177,5 +192,4 @@ export class BasemapSliderController {
         const basemapSliderModel = this._basemapSliderModel!;
         return basemapSliderModel.basemaps.find((basemap: BasemapConfig) => basemap.value === value);
     }
-
 }
