@@ -490,6 +490,13 @@
                 "showLayerLegend": true
             }
         },
+          "toolrules": {
+            "ToolActiveStateManager": {
+                "activateOnStartToolIds": [
+                    "basemapSliderTool"
+                ]
+            }
+        },
         "toolset": {
             "ToolsetManager": {
                 "toolsets": [

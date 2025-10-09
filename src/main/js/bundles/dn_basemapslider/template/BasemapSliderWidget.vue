@@ -16,65 +16,96 @@
 
 -->
 <template>
-    <v-card>
-        <v-flex>
-            <v-chip
-                v-for="basemap in basemaps"
-                :id="basemap.id"
-                :key="basemap.id"
-                :class="{ primary: basemap.active }"
-                label
-                @click="goToLayer(basemap.value)"
+    <div class="basemap-slider__container">
+        <div class="basemap-slider__selection-section">
+            <div
+                v-for="(basemap, index) in basemaps"
+                :key="`basemap-container-${basemap.id}`"
             >
-                {{ basemap.title }}
-            </v-chip>
-            <v-flex
-                xs12
-                px-4
-            >
-                <v-slider
-                    v-model="opacity"
-                    class="pt-10"
+                <span
+                    v-if="index === basemaps.length - 1 && rightElipsesActive"
+                    :key="`right-elipses-${index}`"
+                    class="basemap-slider__elipses"
+                >
+                    ...
+                </span>
+                <v-chip
+                    v-if="filteredBasemaps.includes(basemap) && !basemap.active"
+                    :id="basemap.id"
+                    :key="`chip-${basemap.id}`"
+                    :class="{ primary: basemap.active }"
+                    label
+                    @click="goToLayer(basemap.value)"
+                >
+                    {{ basemap.title }}
+                </v-chip>
+                <v-select
+                    v-else-if="filteredBasemaps.includes(basemap) && basemap.active"
+                    :key="`select-${basemap.id}`"
+                    class="basemap-slider__basemap-select"
+                    :value="basemap.value"
+                    :items="basemaps"
+                    item-text="title"
+                    item-value="value"
+                    outline
                     hide-details
-                    step="count"
+                    @change="goToLayer($event)"
                 />
-            </v-flex>
-            <v-flex
-                v-if="autoplayEnabled === true"
-                xs12
-                px-4
-                align-center
-            >
-                <v-btn
-                    :class="{ primary: autoplayActive, secondary: !autoplayActive }"
-                    @click="$emit('autoplay-clicked')"
+                <span
+                    v-if="index === 0 && leftElipsesActive"
+                    :key="`left-elipses-${index}`"
+                    class="basemap-slider__elipses"
                 >
-                    <v-icon left>
-                        play_circle_outline
-                    </v-icon>
-                    {{ i18n.buttons.autoplay }}
-                </v-btn>
-                <v-btn
-                    class="secondary"
-                    @click="$emit('autoplay-pause-clicked')"
-                >
-                    <v-icon left>
-                        pause
-                    </v-icon>
-                    {{ i18n.buttons.stop }}
-                </v-btn>
-                <v-btn
-                    class="secondary"
-                    @click="opacity = 0"
-                >
-                    <v-icon left>
-                        replay
-                    </v-icon>
-                    {{ i18n.buttons.reset }}
-                </v-btn>
-            </v-flex>
+                    ...
+                </span>
+            </div>
+        </div>
+        <v-flex
+            xs12
+            px-4
+        >
+            <v-slider
+                v-model="opacity"
+                class="pt-10"
+                hide-details
+                step="count"
+            />
         </v-flex>
-    </v-card>
+        <v-flex
+            v-if="autoplayEnabled === true"
+            xs12
+            px-4
+            align-center
+        >
+            <v-btn
+                :class="{ primary: autoplayActive, secondary: !autoplayActive }"
+                @click="$emit('autoplay-clicked')"
+            >
+                <v-icon left>
+                    play_circle_outline
+                </v-icon>
+                {{ i18n.buttons.autoplay }}
+            </v-btn>
+            <v-btn
+                class="secondary"
+                @click="$emit('autoplay-pause-clicked')"
+            >
+                <v-icon left>
+                    pause
+                </v-icon>
+                {{ i18n.buttons.stop }}
+            </v-btn>
+            <v-btn
+                class="secondary"
+                @click="opacity = 0"
+            >
+                <v-icon left>
+                    replay
+                </v-icon>
+                {{ i18n.buttons.reset }}
+            </v-btn>
+        </v-flex>
+    </div>
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
@@ -102,6 +133,26 @@
         computed: {
             count() {
                 return this.basemaps.length;
+            },
+            filteredBasemaps() {
+                const activeBasemapIndex = this.basemaps.findIndex(basemap => basemap.active);
+                return this.basemaps.filter((_, index) =>
+                    [
+                        0,
+                        activeBasemapIndex - 1,
+                        activeBasemapIndex,
+                        activeBasemapIndex + 1,
+                        this.basemaps.length - 1
+                    ].includes(index)
+                );
+            },
+            leftElipsesActive() {
+                const activeBasemapIndex = this.basemaps.findIndex(basemap => basemap.active);
+                return activeBasemapIndex > 2;
+            },
+            rightElipsesActive() {
+                const activeBasemapIndex = this.basemaps.findIndex(basemap => basemap.active);
+                return activeBasemapIndex < this.basemaps.length - 3;
             }
         },
         watch: {

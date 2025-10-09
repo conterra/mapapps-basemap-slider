@@ -14,21 +14,55 @@
  * limitations under the License.
  */
 .ctAppRoot .basemapslider {
-    background-color: transparent;
-}
+    .basemap-slider__container {
 
-.ctAppRoot .basemap-slider .input-group {
-    padding: 0 0 0;
-}
+        .basemap-slider__selection-section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
 
-.ctAppRoot .basemap-slider .v-chip {
-    color: white;
-}
+        .input-group {
+            padding: 0 0 0;
+        }
 
-.ctAppRoot .basemap-slider .v-chip .v-chip__content {
-    cursor: pointer;
-}
+        .v-chip {
+            color: white;
+        }
 
-.ctAppRoot .basemap-slider .v-slider .v-slider__thumb {
-    cursor: pointer;
+        .v-chip .v-chip__content {
+            cursor: pointer;
+        }
+
+        .v-slider .v-slider__thumb {
+            cursor: pointer;
+        }
+
+        .basemap-slider__elipses {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .basemap-slider__basemap-select {
+            max-width: 100px;
+
+            .v-input__control .v-input__slot {
+                padding-right: 0;
+                min-height: 30px;
+
+                .v-select__slot {
+                    max-height: 30px;;
+                }
+                .v-select__selections {
+                    padding-top: 0;
+                }
+                .v-input__append-inner {
+                    margin-top: 0;
+                }
+            }
+
+
+        }
+    }
+}
 }
