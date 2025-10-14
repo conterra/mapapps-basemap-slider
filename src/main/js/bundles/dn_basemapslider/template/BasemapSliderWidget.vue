@@ -25,10 +25,8 @@
                 <span
                     v-if="index === basemaps.length - 1 && rightElipsesActive"
                     :key="`right-elipses-${index}`"
-                    class="basemap-slider__elipses"
-                >
-                    ...
-                </span>
+                    class="basemap-slider__elipses icon-more-h"
+                />
                 <v-chip
                     v-if="filteredBasemaps.includes(basemap) && !basemap.active"
                     :id="basemap.id"
@@ -54,10 +52,8 @@
                 <span
                     v-if="index === 0 && leftElipsesActive"
                     :key="`left-elipses-${index}`"
-                    class="basemap-slider__elipses"
-                >
-                    ...
-                </span>
+                    class="basemap-slider__elipses icon-more-h"
+                />
             </div>
         </div>
         <v-flex

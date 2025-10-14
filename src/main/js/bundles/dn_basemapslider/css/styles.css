@@ -28,7 +28,7 @@
         }
 
         .v-chip {
-            color: white;
+            color: #fff;
         }
 
         .v-chip .v-chip__content {
@@ -45,25 +45,34 @@
         }
 
         .basemap-slider__basemap-select {
-            max-width: 100px;
+            max-width: 71px;
 
             .v-input__control .v-input__slot {
+                padding-left: 5px;
                 padding-right: 0;
                 min-height: 30px;
+                border: 2px solid #ADADAD;
 
                 .v-select__slot {
-                    max-height: 30px;;
+                    max-height: 30px;
                 }
+
                 .v-select__selections {
                     padding-top: 0;
                 }
+
                 .v-input__append-inner {
                     margin-top: 0;
+                }
+
+                .v-input__icon i {
+                    zoom: 1.5;
+                    margin-right: 10px;
+                    margin-top: 5px;
                 }
             }
 
 
         }
     }
-}
 }
