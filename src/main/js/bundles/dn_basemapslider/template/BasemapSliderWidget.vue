@@ -17,10 +17,16 @@
 -->
 <template>
     <div class="basemap-slider__container">
-        <basemap-slider-elipsis-section
+        <!-- <basemap-slider-elipsis-section
             :basemaps="basemaps"
             @chip:go-to-layer="goToLayer($event)"
             @select:go-to-layer="goToLayer($event)"
+        /> -->
+        <basemap-slider-arrow-section
+            :basemaps="basemaps"
+            @chip:go-to-layer="goToLayer($event)"
+            @chip:go-to-right-layer="goToLayer($event + 1)"
+            @chip:go-to-left-layer="goToLayer($event - 1)"
         />
         <v-flex
             xs12
@@ -72,10 +78,12 @@
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
     import BasemapSliderElipsisSection from "./subcomponents/BasemapSliderElipsisSection.vue";
+    import BasemapSliderArrowSection from "./subcomponents/BasemapSliderArrowSection.vue";
 
     export default {
         components: {
-            "basemap-slider-elipsis-section": BasemapSliderElipsisSection
+            "basemap-slider-elipsis-section": BasemapSliderElipsisSection,
+            "basemap-slider-arrow-section": BasemapSliderArrowSection
         },
         mixins: [Bindable],
         props: {
