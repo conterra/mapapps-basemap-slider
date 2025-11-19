@@ -41,7 +41,8 @@
                 "autoplayEnabled": false,
                 "autoplayInterval": 500,
                 "autoplayOpacityIncrement": 0.5,
-                "forceBasemapSelection": true
+                "forceBasemapSelection": true,
+                "widgetDisplayMode": "default"
             }
         },
         {

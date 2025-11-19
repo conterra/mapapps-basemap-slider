@@ -25,7 +25,8 @@ export interface BasemapSliderModelProperties {
     autoplayEnabled: boolean,
     autoplayTimeInterval: number,
     autoplayOpacityIncrement: number,
-    forceBasemapSelection: boolean
+    forceBasemapSelection: boolean,
+    widgetDisplayMode: "default" | "arrows" | "elipsis"
 }
 
 export class BasemapSliderModel extends Mutable { }
@@ -39,5 +40,6 @@ properties(BasemapSliderModel, {
     autoplayEnabled: undefined,
     autoplayTimeInterval: undefined,
     autoplayOpacityIncrement: undefined,
-    forceBasemapSelection: false
+    forceBasemapSelection: false,
+    widgetDisplayMode: "default"
 });

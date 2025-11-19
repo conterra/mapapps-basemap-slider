@@ -20,7 +20,7 @@
                 :class="{ primary: basemap.active }"
                 @click="$emit('chip:go-to-layer', basemap.value)"
             >
-                Luftbild: Wirklich langer Title {{ basemap.title }}
+                {{ basemap.title }}
             </v-chip>
             <v-chip
                 v-if="index === 0"

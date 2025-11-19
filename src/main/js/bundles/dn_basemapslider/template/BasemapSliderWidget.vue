@@ -17,16 +17,23 @@
 -->
 <template>
     <div class="basemap-slider__container">
-        <!-- <basemap-slider-elipsis-section
+        <basemap-slider-default-section
+            v-if="widgetDisplayMode === 'default' || !widgetDisplayMode"
             :basemaps="basemaps"
             @chip:go-to-layer="goToLayer($event)"
-            @select:go-to-layer="goToLayer($event)"
-        /> -->
+        />
         <basemap-slider-arrow-section
+            v-else-if="widgetDisplayMode === 'arrows'"
             :basemaps="basemaps"
             @chip:go-to-layer="goToLayer($event)"
             @chip:go-to-right-layer="goToLayer($event + 1)"
             @chip:go-to-left-layer="goToLayer($event - 1)"
+        />
+        <basemap-slider-elipsis-section
+            v-else-if="widgetDisplayMode === 'elipsis'"
+            :basemaps="basemaps"
+            @chip:go-to-layer="goToLayer($event)"
+            @select:go-to-layer="goToLayer($event)"
         />
         <v-flex
             xs12
@@ -77,13 +84,15 @@
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
-    import BasemapSliderElipsisSection from "./subcomponents/BasemapSliderElipsisSection.vue";
     import BasemapSliderArrowSection from "./subcomponents/BasemapSliderArrowSection.vue";
+    import BasemapSliderDefaultSection from "./subcomponents/BasemapSliderDefaultSection.vue";
+    import BasemapSliderElipsisSection from "./subcomponents/BasemapSliderElipsisSection.vue";
 
     export default {
         components: {
+            "basemap-slider-arrow-section": BasemapSliderArrowSection,
             "basemap-slider-elipsis-section": BasemapSliderElipsisSection,
-            "basemap-slider-arrow-section": BasemapSliderArrowSection
+            "basemap-slider-default-section": BasemapSliderDefaultSection
         },
         mixins: [Bindable],
         props: {
@@ -102,6 +111,10 @@
             autoplayActive: {
                 type: Boolean,
                 default: () => false
+            },
+            widgetDisplayMode: {
+                type: String,
+                default: () => ""
             }
         },
         computed: {

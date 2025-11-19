@@ -81,7 +81,7 @@ export class BasemapSliderWidgetFactory {
             .create()
             .bindTo(vm, model)
             .syncAll("opacity")
-            .syncAllToLeft("basemaps", "autoplayEnabled", "autoplayActive")
+            .syncAllToLeft("basemaps", "autoplayEnabled", "autoplayActive", "widgetDisplayMode")
             .enable()
             .syncToLeftNow();
 
