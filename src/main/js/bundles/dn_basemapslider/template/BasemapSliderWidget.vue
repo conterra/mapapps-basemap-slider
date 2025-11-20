@@ -23,14 +23,14 @@
             @chip:go-to-layer="goToLayer($event)"
         />
         <basemap-slider-arrow-section
-            v-else-if="widgetDisplayMode === 'arrows'"
+            v-else-if="widgetDisplayMode === 'arrow'"
             :basemaps="basemaps"
             @chip:go-to-layer="goToLayer($event)"
             @chip:go-to-right-layer="goToLayer($event + 1)"
             @chip:go-to-left-layer="goToLayer($event - 1)"
         />
-        <basemap-slider-elipsis-section
-            v-else-if="widgetDisplayMode === 'elipsis'"
+        <basemap-slider-ellipsis-section
+            v-else-if="widgetDisplayMode === 'ellipsis'"
             :basemaps="basemaps"
             @chip:go-to-layer="goToLayer($event)"
             @select:go-to-layer="goToLayer($event)"
@@ -86,12 +86,12 @@
     import Bindable from "apprt-vue/mixins/Bindable";
     import BasemapSliderArrowSection from "./subcomponents/BasemapSliderArrowSection.vue";
     import BasemapSliderDefaultSection from "./subcomponents/BasemapSliderDefaultSection.vue";
-    import BasemapSliderElipsisSection from "./subcomponents/BasemapSliderElipsisSection.vue";
+    import BasemapSliderEllipsisSection from "./subcomponents/BasemapSliderEllipsisSection.vue";
 
     export default {
         components: {
             "basemap-slider-arrow-section": BasemapSliderArrowSection,
-            "basemap-slider-elipsis-section": BasemapSliderElipsisSection,
+            "basemap-slider-ellipsis-section": BasemapSliderEllipsisSection,
             "basemap-slider-default-section": BasemapSliderDefaultSection
         },
         mixins: [Bindable],
