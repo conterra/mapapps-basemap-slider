@@ -13,11 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-.ctAppRoot.ctLayout_mobile_portrait .basemapslider .basemap-slider__container .basemap-slider__selection-section {
-    flex-direction: column;
-}
-
 .ctAppRoot .basemapslider {
     .basemap-slider__container {
         .basemap-slider__selection-section {
@@ -76,13 +71,17 @@
                 }
             }
         }
+    }
+}
 
-        .basemap-slider__arrow-section-arrow--first {
-            transform: rotate(90deg);
-        }
+.ctAppRoot.ctLayout_mobile_portrait .basemapslider .basemap-slider__container .basemap-slider__selection-section {
+    flex-direction: column;
 
-        .basemap-slider__arrow-section-arrow--second {
-            transform: rotate(90deg);
-        }
+    .basemap-slider__arrow-section-arrow--first {
+        transform: rotate(90deg);
+    }
+
+    .basemap-slider__arrow-section-arrow--second {
+        transform: rotate(90deg);
     }
 }
