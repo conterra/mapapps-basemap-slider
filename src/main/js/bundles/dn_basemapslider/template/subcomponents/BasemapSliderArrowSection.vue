@@ -1,18 +1,19 @@
 <template>
     <div class="basemap-slider__selection-section">
+        <v-btn
+            :key="'left-elipses'"
+            :disabled="!leftElipsesActive"
+            @click="$emit('chip:go-to-left-layer', activeBasemapIndex)"
+        >
+            <v-icon class="basemap-slider__arrow-section-arrow--first">
+                icon-arrow-left
+            </v-icon>
+        </v-btn>
+
         <div
             v-for="(basemap, index) in basemaps"
             :key="`basemap-container-${basemap.id}`"
         >
-            <v-chip
-                v-if="index === basemaps.length - 1"
-                :key="`right-elipses-${index}`"
-                @click="$emit('chip:go-to-right-layer', activeBasemapIndex)"
-            >
-                <v-icon>
-                    icon-arrow-right
-                </v-icon>
-            </v-chip>
             <v-chip
                 v-if="filteredBasemaps.includes(basemap)"
                 :id="basemap.id"
@@ -20,20 +21,22 @@
                 :class="{ primary: basemap.active }"
                 @click="$emit('chip:go-to-layer', basemap.value)"
             >
-                {{ basemap.title }}
-            </v-chip>
-            <v-chip
-                v-if="index === 0"
-                :key="`left-elipses-${index}`"
-                @click="$emit('chip:go-to-left-layer', activeBasemapIndex)"
-            >
-                <v-icon>
-                    icon-arrow-left
-                </v-icon>
+                Laaaaaanger Titel {{ basemap.title }}
             </v-chip>
         </div>
+
+        <v-btn
+            :key="'right-elipses'"
+            :disabled="!rightElipsesActive"
+            @click="$emit('chip:go-to-right-layer', activeBasemapIndex)"
+        >
+            <v-icon class="basemap-slider__arrow-section-arrow--second">
+                icon-arrow-right
+            </v-icon>
+        </v-btn>
     </div>
 </template>
+
 <script>
     export default {
         props: {
