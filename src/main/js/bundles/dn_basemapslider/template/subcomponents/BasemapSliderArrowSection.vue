@@ -21,7 +21,7 @@
                 :class="{ primary: basemap.active }"
                 @click="$emit('chip:go-to-layer', basemap.value)"
             >
-                Laaaaaanger Titel {{ basemap.title }}
+                {{ basemap.title }}
             </v-chip>
         </div>
 
