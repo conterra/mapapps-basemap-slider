@@ -1,5 +1,6 @@
-[![devnet-bundle-snapshot](https://github.com/conterra/mapapps-bookmarks/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-bookmarks/actions/workflows/devnet-bundle-snapshot.yml)
-![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.17.0-%20?labelColor=%233E464F&color=%232FC050)
+[![devnet-bundle-snapshot](https://github.com/conterra/mapapps-basemap-slider/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-basemap-slider/actions/workflows/devnet-bundle-snapshot.yml)
+![Static Badge](https://img.shields.io/badge/requires_map.apps-4.20.0-e5e5e5?labelColor=%233E464F&logoColor=%23e5e5e5)
+![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.20.0-%20?labelColor=%233E464F&color=%232FC050)
 # Basemap Slider Bundle
 
 The Basemap Slider Bundle provides a widget that allows you to fade between different basemaps.
@@ -11,11 +12,6 @@ https://demos.conterra.de/mapapps/resources/apps/public_demo_basemapslider/index
 
 ![Screenshot Sample App Basemap Slider](https://github.com/conterra/mapapps-basemap-slider/blob/main/screenshot.png)
 **This project is not intended for use by non-con terra users.** It is designed for the creation of bundles and their releases in GitHub and can access con terra internal infrastructures for this purpose. To develop your own map.apps bundles, use the [mapapps-4-developers project](https://github.com/conterra/mapapps-4-developers).
-
-## Installation Guide
-## Build
-
-**Requirement: map.apps 4.3.0**
 
 [dn_basemapslider Documentation](https://github.com/conterra/mapapps-basemap-slider/tree/master/src/main/js/bundles/dn_basemapslider)
 ## Requirements
