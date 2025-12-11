@@ -88,12 +88,12 @@
     import Bindable from "apprt-vue/mixins/Bindable";
     import BasemapSliderArrowSection from "./subcomponents/BasemapSliderArrowSection.vue";
     import BasemapSliderDefaultSection from "./subcomponents/BasemapSliderDefaultSection.vue";
-    import BasemapSliderEllipsisSection from "./subcomponents/BasemapSliderEllipsisSection.vue";
+    // import BasemapSliderEllipsisSection from "./subcomponents/BasemapSliderEllipsisSection.vue";
 
     export default {
         components: {
             "basemap-slider-arrow-section": BasemapSliderArrowSection,
-            "basemap-slider-ellipsis-section": BasemapSliderEllipsisSection,
+            // "basemap-slider-ellipsis-section": BasemapSliderEllipsisSection,
             "basemap-slider-default-section": BasemapSliderDefaultSection
         },
         mixins: [Bindable],
