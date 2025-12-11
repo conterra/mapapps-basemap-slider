@@ -25,16 +25,18 @@
         <basemap-slider-arrow-section
             v-else-if="widgetDisplayMode === 'arrow'"
             :basemaps="basemaps"
+            :active-basemap-index="activeBasemapIndex"
             @chip:go-to-layer="goToLayer($event)"
             @chip:go-to-right-layer="goToLayer($event + 1)"
             @chip:go-to-left-layer="goToLayer($event - 1)"
         />
-        <basemap-slider-ellipsis-section
+        <!-- <basemap-slider-ellipsis-section
             v-else-if="widgetDisplayMode === 'ellipsis'"
             :basemaps="basemaps"
+            :active-basemap-index="activeBasemapIndex"
             @chip:go-to-layer="goToLayer($event)"
             @select:go-to-layer="goToLayer($event)"
-        />
+        /> -->
         <v-flex
             xs12
             px-4
@@ -117,6 +119,11 @@
                 default: () => ""
             }
         },
+        data() {
+            return {
+                activeBasemapIndex: 0
+            };
+        },
         computed: {
             count() {
                 return this.basemaps.length;
@@ -130,6 +137,7 @@
         methods: {
             goToLayer: function (value) {
                 this.opacity = value * 100 / (this.count - 1);
+                this.activeBasemapIndex = value;
             }
         }
     };

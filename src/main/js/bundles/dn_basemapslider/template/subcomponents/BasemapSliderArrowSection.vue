@@ -19,7 +19,7 @@
     <div class="basemap-slider__selection-section">
         <v-btn
             :key="'left-elipses'"
-            :disabled="!leftElipsesActive"
+            :disabled="moveLeftDisabled"
             @click="$emit('chip:go-to-left-layer', activeBasemapIndex)"
         >
             <v-icon class="basemap-slider__arrow-section-arrow--first">
@@ -44,7 +44,7 @@
 
         <v-btn
             :key="'right-elipses'"
-            :disabled="!rightElipsesActive"
+            :disabled="moveRightDisabled"
             @click="$emit('chip:go-to-right-layer', activeBasemapIndex)"
         >
             <v-icon class="basemap-slider__arrow-section-arrow--second">
@@ -60,6 +60,10 @@
             basemaps: {
                 type: Array,
                 default: () => []
+            },
+            activeBasemapIndex: {
+                type: Number,
+                default: 0
             }
         },
         computed: {
@@ -72,16 +76,11 @@
                     ].includes(index)
                 );
             },
-            activeBasemapIndex() {
-                return this.basemaps.findIndex(basemap => basemap.active);
+            moveLeftDisabled() {
+                return this.activeBasemapIndex < 1;
             },
-            leftElipsesActive() {
-                const activeBasemapIndex = this.basemaps.findIndex(basemap => basemap.active);
-                return activeBasemapIndex > 1;
-            },
-            rightElipsesActive() {
-                const activeBasemapIndex = this.basemaps.findIndex(basemap => basemap.active);
-                return activeBasemapIndex < this.basemaps.length - 2;
+            moveRightDisabled() {
+                return this.activeBasemapIndex >= this.basemaps.length - 1;
             }
         }
     };

@@ -51,7 +51,8 @@
                 "autoplayEnabled": true,
                 "autoplayInterval": 500,
                 "autoplayOpacityIncrement": 0.5,
-                "forceBasemapSelection": false
+                "forceBasemapSelection": false,
+                "widgetDisplayMode": "arrow"
             }
         },
         "agssearch": {

@@ -62,6 +62,10 @@
             basemaps: {
                 type: Array,
                 default: () => []
+            },
+            activeBasemapIndex: {
+                type: Number,
+                default: 0
             }
         },
         computed: {
@@ -78,12 +82,10 @@
                 );
             },
             leftElipsesActive() {
-                const activeBasemapIndex = this.basemaps.findIndex(basemap => basemap.active);
-                return activeBasemapIndex > 2;
+                return this.activeBasemapIndex > 2;
             },
             rightElipsesActive() {
-                const activeBasemapIndex = this.basemaps.findIndex(basemap => basemap.active);
-                return activeBasemapIndex < this.basemaps.length - 3;
+                return this.activeBasemapIndex < this.basemaps.length - 3;
             }
         }
     };
