@@ -81,7 +81,7 @@ export class BasemapSliderWidgetFactory {
             .create()
             .bindTo(vm, model)
             .syncAll("opacity")
-            .syncAllToLeft("basemaps", "autoplayEnabled", "autoplayActive")
+            .syncAllToLeft("basemaps", "autoplayEnabled", "autoplayActive", "widgetDisplayMode")
             .enable()
             .syncToLeftNow();
 
@@ -92,7 +92,7 @@ export class BasemapSliderWidgetFactory {
     }
 
     createInstance(): Vue {
-        return VueDijit(this.vm, { class: "basemap-slider" });
+        return VueDijit(this.vm);
     }
 
     hideWindow(): void {

@@ -16,70 +16,84 @@
 
 -->
 <template>
-    <v-card>
-        <v-flex>
-            <v-chip
-                v-for="basemap in basemaps"
-                :id="basemap.id"
-                :key="basemap.id"
-                :class="{ primary: basemap.active }"
-                label
-                @click="goToLayer(basemap.value)"
-            >
-                {{ basemap.title }}
-            </v-chip>
-            <v-flex
-                xs12
-                px-4
-            >
-                <v-slider
-                    v-model="opacity"
-                    class="pt-10"
-                    hide-details
-                    step="count"
-                />
-            </v-flex>
-            <v-flex
-                v-if="autoplayEnabled === true"
-                xs12
-                px-4
-                align-center
-            >
-                <v-btn
-                    :class="{ primary: autoplayActive, secondary: !autoplayActive }"
-                    @click="$emit('autoplay-clicked')"
-                >
-                    <v-icon left>
-                        play_circle_outline
-                    </v-icon>
-                    {{ i18n.buttons.autoplay }}
-                </v-btn>
-                <v-btn
-                    class="secondary"
-                    @click="$emit('autoplay-pause-clicked')"
-                >
-                    <v-icon left>
-                        pause
-                    </v-icon>
-                    {{ i18n.buttons.stop }}
-                </v-btn>
-                <v-btn
-                    class="secondary"
-                    @click="opacity = 0"
-                >
-                    <v-icon left>
-                        replay
-                    </v-icon>
-                    {{ i18n.buttons.reset }}
-                </v-btn>
-            </v-flex>
+    <div class="basemap-slider__container">
+        <basemap-slider-default-section
+            v-if="widgetDisplayMode === 'default' || !widgetDisplayMode"
+            :basemaps="basemaps"
+            @chip:go-to-layer="goToLayer($event)"
+        />
+        <basemap-slider-arrow-section
+            v-else-if="widgetDisplayMode === 'arrow'"
+            :basemaps="basemaps"
+            @chip:go-to-layer="goToLayer($event)"
+            @chip:go-to-right-layer="goToLayer($event + 1)"
+            @chip:go-to-left-layer="goToLayer($event - 1)"
+        />
+        <basemap-slider-ellipsis-section
+            v-else-if="widgetDisplayMode === 'ellipsis'"
+            :basemaps="basemaps"
+            @chip:go-to-layer="goToLayer($event)"
+            @select:go-to-layer="goToLayer($event)"
+        />
+        <v-flex
+            xs12
+            px-4
+        >
+            <v-slider
+                v-model="opacity"
+                class="pt-10"
+                hide-details
+                step="count"
+            />
         </v-flex>
-    </v-card>
+        <v-flex
+            v-if="autoplayEnabled === true"
+            xs12
+            px-4
+            align-center
+        >
+            <v-btn
+                :class="{ primary: autoplayActive, secondary: !autoplayActive }"
+                @click="$emit('autoplay-clicked')"
+            >
+                <v-icon left>
+                    play_circle_outline
+                </v-icon>
+                {{ i18n.buttons.autoplay }}
+            </v-btn>
+            <v-btn
+                class="secondary"
+                @click="$emit('autoplay-pause-clicked')"
+            >
+                <v-icon left>
+                    pause
+                </v-icon>
+                {{ i18n.buttons.stop }}
+            </v-btn>
+            <v-btn
+                class="secondary"
+                @click="opacity = 0"
+            >
+                <v-icon left>
+                    replay
+                </v-icon>
+                {{ i18n.buttons.reset }}
+            </v-btn>
+        </v-flex>
+    </div>
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
+    import BasemapSliderArrowSection from "./subcomponents/BasemapSliderArrowSection.vue";
+    import BasemapSliderDefaultSection from "./subcomponents/BasemapSliderDefaultSection.vue";
+    import BasemapSliderEllipsisSection from "./subcomponents/BasemapSliderEllipsisSection.vue";
 
     export default {
+        components: {
+            "basemap-slider-arrow-section": BasemapSliderArrowSection,
+            "basemap-slider-ellipsis-section": BasemapSliderEllipsisSection,
+            "basemap-slider-default-section": BasemapSliderDefaultSection
+        },
         mixins: [Bindable],
         props: {
             basemaps: {
@@ -97,6 +111,10 @@
             autoplayActive: {
                 type: Boolean,
                 default: () => false
+            },
+            widgetDisplayMode: {
+                type: String,
+                default: () => ""
             }
         },
         computed: {

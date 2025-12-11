@@ -28,6 +28,22 @@
         {
             "widgetRole": "basemapslider",
             "attachTo": "map_topright"
+        },
+        {
+            "widgetRole": "basemapslider",
+            "sublayout": ["mobile_landscape", "mobile_portrait"],
+            "window": {
+                "title": "${ui.title}",
+                "dockable": true,
+                "dockingBar": "${id}-dockingBarBottomLeft",
+                "minimizeOnClose": true,
+                "resizable": false,
+                "marginBox": {
+                    "w": "100%",
+                    "h": "50%",
+                    "b": 0
+                }
+            }
         }
     ],
     "components": [
@@ -41,7 +57,8 @@
                 "autoplayEnabled": false,
                 "autoplayInterval": 500,
                 "autoplayOpacityIncrement": 0.5,
-                "forceBasemapSelection": true
+                "forceBasemapSelection": true,
+                "widgetDisplayMode": "default"
             }
         },
         {
