@@ -18,7 +18,8 @@ If you have more than one basemap, you can configure the basemap group id
         "autoplayEnabled": true,
         "autoplayInterval": 500,
         "autoplayOpacityIncrement": 0.5,
-        "forceBasemapSelection": false
+        "forceBasemapSelection": false,
+        "widgetDisplayMode": "arrow" //arrow or default
     }
 }
 ````
