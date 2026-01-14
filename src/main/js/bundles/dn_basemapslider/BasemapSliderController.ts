@@ -140,8 +140,10 @@ export class BasemapSliderController {
             }
             if (opacity <= 0.5) {
                 basemap1.active = true;
+                basemapSliderModel.activeBasemapIndex = basemapValue1;
             } else {
                 basemap2.active = true;
+                basemapSliderModel.activeBasemapIndex = basemapValue2;
             }
         }
         baseLayer1.emit("refresh", { dataChanged: true });
