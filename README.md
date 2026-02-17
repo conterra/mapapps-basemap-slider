@@ -8,7 +8,6 @@ The Basemap Slider Bundle provides a widget that allows you to fade between diff
 ## Sample App
 
 https://demos.conterra.de/mapapps/resources/apps/public_demo_basemapslider/index.html
-# mapapps-remote-project-blueprint
 
 ![Screenshot Sample App Basemap Slider](https://github.com/conterra/mapapps-basemap-slider/blob/main/screenshot.png)
 **This project is not intended for use by non-con terra users.** It is designed for the creation of bundles and their releases in GitHub and can access con terra internal infrastructures for this purpose. To develop your own map.apps bundles, use the [mapapps-4-developers project](https://github.com/conterra/mapapps-4-developers).
