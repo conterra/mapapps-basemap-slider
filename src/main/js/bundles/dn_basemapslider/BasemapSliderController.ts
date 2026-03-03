@@ -18,12 +18,10 @@ import type { InjectedReference } from "apprt-core/InjectedReference";
 import type { BasemapsModel } from "map-basemaps-api/api";
 import type { BasemapSliderModel } from "./BasemapSliderModel";
 import type { BasemapConfig } from "./api";
-import type { MapWidgetModel } from "map-widget/api";
 import type Tool from "ct/tools/Tool";
 
 export class BasemapSliderController {
     private _tool: InjectedReference<typeof Tool>;
-    private _mapWidgetModel?: InjectedReference<MapWidgetModel>;
     private _basemapsModel: InjectedReference<BasemapsModel>;
     private _basemapSliderModel: InjectedReference<BasemapSliderModel>;
 
