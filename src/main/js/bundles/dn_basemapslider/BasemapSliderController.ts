@@ -136,9 +136,9 @@ export class BasemapSliderController {
                 baseLayer1.layers.forEach((layer: __esri.Layer) => layer.opacity = baseLayer1.opacity);
             }
         } else {
-            baseLayer1.opacity = 1 - opacity;
+            baseLayer1.opacity = 1;
             if (baseLayer1.type === "group") {
-                baseLayer1.layers.forEach((layer: __esri.Layer) => layer.opacity = baseLayer1.opacity);
+                baseLayer1.layers.forEach((layer: __esri.Layer) => layer.opacity = 1);
             }
             baseLayer2.opacity = opacity;
             if (baseLayer2.type === "group") {
