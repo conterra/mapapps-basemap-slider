@@ -18,11 +18,9 @@ import BasemapSliderWidget from "./template/BasemapSliderWidget.vue";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import Binding from "apprt-binding/Binding";
-import ct_util from "ct/ui/desktop/util";
-import async from "apprt-core/async";
 
 import { InjectedReference } from "apprt-core/InjectedReference";
-import type { BundleContext, ComponentContext, ServiceRegistration } from "apprt/api";
+import type { ComponentContext } from "apprt/api";
 import type Tool from "ct/tools/Tool";
 import type { BasemapSliderController } from "./BasemapSliderController";
 import type { BasemapsModel } from "map-basemaps-api/api";
@@ -31,30 +29,29 @@ import type { MessagesReference } from "./nls/bundle";
 
 export class BasemapSliderWidgetFactory {
     private vm?: Vue;
-    private sliderWidget?: Vue;
-    private tool?: typeof Tool;
     private basemapBinding?: Binding;
-    private bundleContext?: BundleContext;
     private basemapSliderModelBinding?: Binding;
-    private serviceRegistration?: ServiceRegistration;
+    private toolBinding?: Binding;
 
+    private _tool?: InjectedReference<Tool>;
     private _i18n?: InjectedReference<MessagesReference>;
     private _basemapsModel: InjectedReference<BasemapsModel>;
     private _basemapSliderModel: InjectedReference<BasemapSliderModel>;
     private _basemapSliderController: InjectedReference<BasemapSliderController>;
 
     activate(componentContext: ComponentContext): void {
-        this.bundleContext = componentContext.getBundleContext();
+        this.initComponent();
     }
 
     deactivate(): void {
-        this.destroyWidget();
-
         this.basemapSliderModelBinding?.unbind();
-        this.basemapSliderModelBinding = null;
+        this.basemapSliderModelBinding = undefined;
 
         this.basemapBinding?.unbind();
-        this.basemapBinding = null;
+        this.basemapBinding = undefined;
+
+        this.toolBinding?.unbind();
+        this.toolBinding = undefined;
     }
 
     initComponent(): void {
@@ -89,62 +86,16 @@ export class BasemapSliderWidgetFactory {
             .create()
             .bindTo(vm, basemapsModel)
             .enable();
+
+        this.toolBinding = Binding
+            .create()
+            .bindTo(vm, this._tool!)
+            .syncAllToLeft("active")
+            .enable();
     }
 
     createInstance(): Vue {
         return VueDijit(this.vm);
     }
 
-    hideWindow(): void {
-        this.sliderWidget?.destroy();
-        this.sliderWidget = null;
-
-        const registration = this.serviceRegistration;
-        this.serviceRegistration = null;
-
-        if (registration) {
-            registration.unregister();
-        }
-        if (this.tool) {
-            this.tool.set("active", false);
-        }
-    }
-
-
-    getWidget(): Vue {
-        this.initComponent();
-        return VueDijit(this.vm, { class: "basemap-slider" });
-    }
-
-    destroyWidget(): void {
-        this.sliderWidget?.destroy();
-        this.sliderWidget = undefined;
-    }
-
-    onToolActivated(evt: any): void {
-        async(() => {
-            this.tool = evt.tool;
-            const widget = this.getWidget();
-            this.showWindow(widget);
-        }, 200);
-    }
-
-    onToolDeactivated(): void {
-        this.hideWindow();
-    }
-
-    showWindow(widget: Vue): void {
-        const serviceProperties = {
-            "widgetRole": "basemapslider"
-        };
-        const interfaces = ["dijit.Widget"];
-        this.serviceRegistration = this.bundleContext.registerService(interfaces, widget, serviceProperties);
-
-        async(() => {
-            const window = ct_util.findEnclosingWindow(widget);
-            window?.on("Hide", () => {
-                this.hideWindow();
-            });
-        }, 1000);
-    }
 }
