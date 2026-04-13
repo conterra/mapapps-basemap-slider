@@ -34,6 +34,7 @@
             "sublayout": ["mobile_landscape", "mobile_portrait"],
             "window": {
                 "title": "${ui.title}",
+                "dockTool": "basemapSliderTool",
                 "dockable": true,
                 "dockingBar": "${id}-dockingBarBottomLeft",
                 "minimizeOnClose": true,
@@ -64,8 +65,13 @@
         {
             "name": "BasemapSliderWidgetFactory",
             "provides": [
-                "dn_basemapslider.BasemapSliderWidgetFactory"
+                "dijit.Widget",
+                "dn_basemapslider.BasemapSliderWidget"
             ],
+            "instanceFactory": true,
+            "properties": {
+                "widgetRole": "basemapslider"
+            },
             "references": [
                 {
                     "name": "_basemapSliderModel",
@@ -79,7 +85,12 @@
                 {
                     "name": "_basemapsModel",
                     "providing": "map-basemaps-api.BasemapsModel"
+                },
+                {
+                    "name": "_tool",
+                    "providing": "dn_basemapslider.BasemapSliderTool"
                 }
+
             ]
         },
         {
@@ -117,20 +128,12 @@
                 "title": "${tool.title}",
                 "tooltip": "${tool.title}",
                 "iconClass": "icon-layer-settings",
-                "activateHandler": "onToolActivated",
-                "deactivateHandler": "onToolDeactivated",
                 "toolRole": "toolset",
                 "togglable": true,
                 "rules": {
                     "noGroup": true
                 }
-            },
-            "references": [
-                {
-                    "name": "handlerScope",
-                    "providing": "dn_basemapslider.BasemapSliderWidgetFactory"
-                }
-            ]
+            }
         }
     ]
 }

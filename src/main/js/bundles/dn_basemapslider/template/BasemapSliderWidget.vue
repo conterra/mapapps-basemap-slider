@@ -16,7 +16,10 @@
 
 -->
 <template>
-    <div class="basemap-slider__container">
+    <div
+        v-if="active"
+        class="basemap-slider__container"
+    >
         <basemap-slider-default-section
             v-if="widgetDisplayMode === 'default' || !widgetDisplayMode"
             :basemaps="basemaps"
@@ -46,6 +49,7 @@
                 class="pt-10"
                 hide-details
                 step="count"
+                actvie
             />
         </v-flex>
         <v-flex
@@ -117,6 +121,10 @@
             widgetDisplayMode: {
                 type: String,
                 default: () => ""
+            },
+            active: {
+                type: Boolean,
+                default: false
             }
         },
         data() {

@@ -22,13 +22,15 @@ import type { MapWidgetModel } from "map-widget/api";
 import type Tool from "ct/tools/Tool";
 
 export class BasemapSliderController {
-    private _tool: InjectedReference<typeof Tool>;
+    private _tool: InjectedReference<Tool>;
     private _mapWidgetModel?: InjectedReference<MapWidgetModel>;
     private _basemapsModel: InjectedReference<BasemapsModel>;
     private _basemapSliderModel: InjectedReference<BasemapSliderModel>;
 
+    private setActiveTimeout?: number;
+
     activate(): void {
-        const tool = this._tool;
+        const tool = this._tool!;
         const model = this._basemapSliderModel!;
         const basemapsModel = this._basemapsModel!;
 
@@ -38,11 +40,12 @@ export class BasemapSliderController {
             this.initSlider(basemapId);
         });
         basemapsModel.watch("selectedId", ({ value }) => {
+            console.info(`selectedId changed: ${value}`);
             this.checkBaseMap(basemapId, value);
         });
 
-        tool.watch("active", (evt: boolean) => {
-            if (evt && model.forceBasemapSelection) {
+        tool.watch("active", (_name: string, active: boolean) => {
+            if (active && model.forceBasemapSelection) {
                 this.setSelectedBasemap(basemapId);
             }
         });
@@ -59,11 +62,14 @@ export class BasemapSliderController {
     private checkBaseMap(basemapId: string, value: string | undefined): void {
         if (!value) return;
 
-        if (value === basemapId) {
-            this._tool.set("active", true);
-        } else {
-            this._tool.set("active", false);
+        if (this.setActiveTimeout !== undefined){
+            clearTimeout(this.setActiveTimeout);
         }
+
+        this.setActiveTimeout = setTimeout(() => {
+            this._tool!.set("active", value === basemapId);
+            this.setActiveTimeout = undefined;
+        }, 50);
     }
 
     private getBaseMap(basemapId: string): __esri.Basemap | undefined {
@@ -99,7 +105,7 @@ export class BasemapSliderController {
             this.adjustOpacity(0);
         } else {
             console.info("No usable layers found");
-            this._tool.set("active", false);
+            this._tool!.set("active", false);
         }
     }
 
@@ -130,9 +136,9 @@ export class BasemapSliderController {
                 baseLayer1.layers.forEach((layer: __esri.Layer) => layer.opacity = baseLayer1.opacity);
             }
         } else {
-            baseLayer1.opacity = 1 - opacity;
+            baseLayer1.opacity = 1;
             if (baseLayer1.type === "group") {
-                baseLayer1.layers.forEach((layer: __esri.Layer) => layer.opacity = baseLayer1.opacity);
+                baseLayer1.layers.forEach((layer: __esri.Layer) => layer.opacity = 1);
             }
             baseLayer2.opacity = opacity;
             if (baseLayer2.type === "group") {
