@@ -129,6 +129,7 @@ export class BasemapSliderController {
         if (baseLayerId1 === baseLayerId2) {
             baseLayer1.opacity = 1;
             basemap1.active = true;
+            basemapSliderModel.activeBasemapIndex = basemapValue1;
             if (baseLayer1.type === "group") {
                 baseLayer1.layers.forEach((layer: __esri.Layer) => layer.opacity = baseLayer1.opacity);
             }

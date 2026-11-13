@@ -35,7 +35,7 @@
                 v-if="filteredBasemaps.includes(basemap)"
                 :id="basemap.id"
                 :key="`chip-${basemap.id}`"
-                :class="{ primary: basemap.active }"
+                :class="{ primary: basemap.value === activeBasemapIndex }"
                 @click="$emit('chip:go-to-layer', basemap.value)"
             >
                 {{ basemap.title }}
