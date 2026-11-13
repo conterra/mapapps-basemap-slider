@@ -23,6 +23,7 @@
         <basemap-slider-default-section
             v-if="widgetDisplayMode === 'default' || !widgetDisplayMode"
             :basemaps="basemaps"
+            :active-basemap-index="activeBasemapIndex"
             @chip:go-to-layer="goToLayer($event)"
         />
         <basemap-slider-arrow-section

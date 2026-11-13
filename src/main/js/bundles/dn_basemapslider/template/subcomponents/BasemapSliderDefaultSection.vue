@@ -21,7 +21,7 @@
             v-for="basemap in basemaps"
             :id="basemap.id"
             :key="basemap.id"
-            :class="{ primary: basemap.active }"
+            :class="{ primary: basemap.value === activeBasemapIndex }"
             label
             @click="$emit('chip:go-to-layer', basemap.value)"
         >
@@ -35,6 +35,10 @@
             basemaps: {
                 type: Array,
                 default: () => []
+            },
+            activeBasemapIndex: {
+                type: Number,
+                default: 0
             }
         }
     };
