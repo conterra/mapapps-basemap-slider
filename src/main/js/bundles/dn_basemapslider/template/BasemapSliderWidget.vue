@@ -49,7 +49,6 @@
                 class="pt-10"
                 hide-details
                 step="count"
-                actvie
             />
         </v-flex>
         <v-flex
